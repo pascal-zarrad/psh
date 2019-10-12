@@ -273,7 +273,7 @@ do
     fi
 done
 echo ""
-echo "Plugin execution done."
+print_success "Plugin execution done."
 
 # Now finish by telling antigen to apply the bundles and themes
 # Now load oh-my-zsh library
