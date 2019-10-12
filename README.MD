@@ -2,7 +2,10 @@
 
 psh - which stands for Pascal's Shell is a configuration for zsh that I use on a daily basis. It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh) that help myself and hopefully also others to grow their productivity.
 
-The two targets of psh are:
+This installer enables the fast installation of zsh, antigen (with that oh-my-zsh) other stuff that is required for a great zsh experience.
+The installer builds always a custom .zshrc which can be modified by adding own customizations to the plugins folder.
+
+The targets of psh are:
  * Create a great zsh experience out of the box
  * Automate and simplify installation by using an installer
  * Be extendable for forks and own variations of the installer
@@ -11,7 +14,7 @@ The two targets of psh are:
 In theory all configuration done by psh should work on any system that is compatible with zsh and all dependencies that are used to enhance the zsh experience.
 But as the installer uses ```apt```, you need any system that supports ```apt``` to use it.
 
-Currently psh is onyl tested in the following environments:
+Currently psh is only tested in the following environments:
  * Ubuntu 18.04 (Windows Subsystem for Linux 1)
 
 ## Installation
