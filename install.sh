@@ -13,6 +13,7 @@
 readonly DEPENDENCIES=(
     "zsh"
     "git"
+    "curl"
 )
 
 # Colors used during script execution
@@ -35,7 +36,7 @@ print_success() {
     echo -e "${SUCCESS_PREFIX} $1"
 }
 
-# A yes/no dialog that can be used for user approvements during installation 
+# A yes/no dialog that can be used for user approvements during installation
 yes_no_dialog() {
     local display_message="$1"
     read -p "Do you want to continue? (y/n): " confirm
@@ -46,10 +47,10 @@ yes_no_dialog() {
     fi
 }
 
-# Print initial 
+# Print initial
 echo "This install script will install zsh and configure it automatically for you."
 echo "If you accept all steps of the installation, zsh will be pre-confiured to provide a great experience out of the box."
-echo "The installer will check the dependencies and will inform you about required actions. 
+echo "The installer will check the dependencies and will inform you about required actions.
 If you have sudo installed, the installer will automatically try to install the dependencies. after your approval."
 
 # Ask user if he wants to start installation
@@ -83,7 +84,12 @@ install_apt_packages() {
         else
             apt-get install -y ${package_install_command}
     fi
-
+    install_result="$?"
+    if [ "$install_result" -ne 0 ]; then
+        print_error "An error occured during installation of dependencies."
+        print_error "Please take a look at the problem and revolve the problem manually!"
+        exit
+    fi
 }
 
 # Analyse which dependencies are already installed
@@ -97,7 +103,7 @@ done
 sudo_installed="1"
 # Check if sudo is installed
 echo ""
-if [ $(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed") -eq 0 ] 
+if [ $(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed") -eq 0 ]
     then
         sudo_installed="0"
         echo -e "sudo is ${$COLOR_RED}NOT INSTALLED${COLOR_RESET}"
@@ -114,11 +120,11 @@ do
 done
 
 # Handle package installation based on environment
-if [ "${#not_installed[@]}" -ne 0 ] 
+if [ "${#not_installed[@]}" -ne 0 ]
     then
-        if [ "${sudo_installed}" = "0" ]; 
+        if [ "${sudo_installed}" = "0" ];
             then
-                if [ $(id -u) -eq "0" ] 
+                if [ $(id -u) -eq "0" ]
                     then
                         install_apt_packages $sudo_installed "$package_install_command"
                     else
@@ -136,3 +142,24 @@ if [ "${#not_installed[@]}" -ne 0 ]
 fi
 
 print_success "Installed all apt dependencies for psh!"
+echo ""
+
+# Ask user if he wants to set zsh as default shell
+echo "zsh has been installed and is now usable."
+echo "But it is currently not configured as your default shell."
+echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
+read -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
+if [ $confirmDefaultShell = "y" ] || [ $confirmDefaultShell = "yes" ];
+    then
+        chsh -s $(which zsh)
+        if [ "$?" -ne 0 ]
+            then
+                print_error "Failed to change login shell using chsh."
+                exit
+            else
+                print_success "zsh has been set as your default login shell!"
+                print_success "From now zsh will be loaded after login."
+        fi
+fi
+
+print_success "Installation completed successfully!"
