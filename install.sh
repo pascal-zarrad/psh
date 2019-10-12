@@ -13,6 +13,7 @@
 readonly DEPENDENCIES=(
     "zsh"
     "zsh-antigen"
+    "fonts-powerline"
     "git"
     "curl"
 )
