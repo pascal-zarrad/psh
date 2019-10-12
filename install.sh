@@ -12,6 +12,7 @@
 # Dependencies that need to be installed with root privileges trhough apt-get
 readonly DEPENDENCIES=(
     "zsh"
+    "zsh-antigen"
     "git"
     "curl"
 )
@@ -162,4 +163,19 @@ if [ $confirmDefaultShell = "y" ] || [ $confirmDefaultShell = "yes" ];
         fi
 fi
 
+# Install oh-my-zsh as framework for cusrtomizations.
+echo ""
+echo "The basic installation of zsh is now done."
+echo "What makes zsh so great is its great customizeability."
+echo "To get started, we will now install oh-my-zsh..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+if [ "$?" -ne 0 ]
+    then
+        print_error "Failed to install oh-my-zsh."
+        exit
+    else
+        print_success "Successfully installed oh-my-zsh!"
+fi
+
+echo ""
 print_success "Installation completed successfully!"
