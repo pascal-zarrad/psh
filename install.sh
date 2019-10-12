@@ -214,12 +214,17 @@ apply_antigen_theme() {
 # First of all backup .zshrc
 echo ""
 echo "Backing up ${HOME}/.zshrc to ${HOME}/.zshrc_unmodified..."
-cp "${HOME}/.zshrc" "${HOME}/.zshrc_unmodified"
-if [ "$?" -eq 0 ]
+if [ -f "${HOME}/.zshrc" ]
     then
-        print_success "Backed up ${HOME}/.zshrc"
+        cp "${HOME}/.zshrc" "${HOME}/.zshrc_unmodified"
+        if [ "$?" -eq 0 ]
+            then
+                print_success "Backed up ${HOME}/.zshrc"
+            else
+                print_error "Failed to backup ${HOME}/.zshrc"
+        fi
     else
-        print_error "Failed to backup ${HOME}/.zshrc"
+        print_warning "No .zshrc exists, nothing has been backed up!"
 fi
 echo ""
 
