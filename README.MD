@@ -1,5 +1,4 @@
 # psh
-
 psh - which stands for Pascal's Shell is a configuration for zsh that I use on a daily basis. It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh) that help myself and hopefully also others to grow their productivity.
 
 This installer enables the fast installation of zsh, antigen (with that oh-my-zsh) other stuff that is required for a great zsh experience.
@@ -10,15 +9,35 @@ The targets of psh are:
  * Automate and simplify installation by using an installer
  * Be extendable for forks and own variations of the installer
 
+## What is used
+Some of the best known open source projects come together in psh.
+Here is a list of every plugin used.
+
+**Framework and package management:**
+ * [Antigen](https://github.com/zsh-users/antigen)
+ * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+
+**Plugins:**
+ * [auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions)
+ * [syntax-highlight](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+**Theme:**
+ * Agnoster
+ * Bira (Fallback for Windows Subsystem for Linux)
+
+When a plugin or theme does not have a link, it is being shipped with oh-my-zsh.
+
 ## Compatibility
 In theory all configuration done by psh should work on any system that is compatible with zsh and all dependencies that are used to enhance the zsh experience.
 But as the installer uses ```apt```, you need any system that supports ```apt``` to use it.
 
 Currently psh is only tested in the following environments:
- * Ubuntu 18.04 (Windows Subsystem for Linux 1)
+ * Ubuntu 18.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
+ * Ubuntu 18.04
 
 **Note on WSL 1**
 zsh and antigen work on WSL 1. But git clone has a permission problem and seems to clone all files with a permission set of 777. Some research resulted in the fact that the problem seems to be on WSL's site and not this script. Till I figure out a way to fix the problem, you will see a warning about insecure directories during the initialization of zsh. Just answer with yes and run the "fix-wsl.sh" shipped with this repo. It will update the permissions of ~/.antigen/bundles from 777 to 755.
+Also the user would have to manually install powerline fonts on windows, so there is a fallback theme used on windows.
 
 ## Installation
 
