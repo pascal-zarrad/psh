@@ -144,7 +144,7 @@ git pull && chmod +x install.sh && ./install.sh
 To ensure code quality, the scripts in the repository are being checked by [shellcheck](https://github.com/koalaman/shellcheck).
 Please refer to the shellcheck repository's README on how to install shellcheck on your computer.
 
-To check code quality run: ```shellcheck *.sh plugins/**/*.sh```
+To check code quality run: ```shellcheck **/*.sh```
 
 **NOTE:** When pushing to this repository, TravisCI will check your changes.There's no way around the check.
 

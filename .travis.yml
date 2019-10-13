@@ -1,6 +1,6 @@
 language: shell
 sudo: false
 script:
- - bash -c 'shopt -s globstar nullglob; shellcheck **/*.{sh,ksh,bash}'
+ - bash -c 'shopt -s globstar nullglob; shellcheck **/*.sh'
 matrix:
   fast_finish: true
