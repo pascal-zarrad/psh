@@ -32,6 +32,7 @@ Here is a list of every plugin used.
  * encode64
  * extract
  * git
+ * golang
 
 **Theme:**
  * Agnoster
