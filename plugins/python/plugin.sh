@@ -9,3 +9,5 @@
 #==================================================================
 
 apply_antigen_bundle "python"
+apply_antigen_bundle "virtualenv"
+apply_antigen_bundle "pip"
