@@ -42,6 +42,8 @@ Here is a list of every plugin used.
  * node, npm
  * pip
  * python
+ * redis-cli
+ * symfony
 
 **Theme:**
  * Agnoster
