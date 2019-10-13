@@ -4,7 +4,7 @@ psh - which stands for Pascal's Shell is a configuration for zsh that I use on a
 This installer enables the fast installation of zsh, antigen (with that oh-my-zsh) other stuff that is required for a great zsh experience.
 The installer builds always a custom .zshrc which can be modified by adding own customizations to the plugins folder.
 
-![PSH Installer](https://github.com/pascal-zarrad/psh/raw/add-gif/.GITHUB_MEDIA/psh.gif)
+![PSH Installer](https://github.com/pascal-zarrad/psh/raw/master/.GITHUB_MEDIA/psh.gif)
 
 The targets of psh are:
  * Create a great zsh experience out of the box
