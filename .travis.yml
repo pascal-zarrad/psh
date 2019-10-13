@@ -1,0 +1,6 @@
+language: shell
+sudo: false
+script:
+ - bash -c 'shopt -s globstar nullglob; shellcheck **/*.{sh,ksh,bash}'
+matrix:
+  fast_finish: true
