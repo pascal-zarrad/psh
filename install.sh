@@ -245,7 +245,8 @@ print_success "Prepared ${HOME}/.zshrc"
 # This keeps this script short.
 echo ""
 echo "Applying all customizations for zsh using plugins..."
-plugins=($(ls plugins))
+plugins=()
+while IFS='' read -r line; do plugins+=("$line"); done < <(ls -1 plugins)
 for plugin in "${plugins[@]}"
 do
     pluginFile="plugins/${plugin}/plugin.sh"
