@@ -60,6 +60,7 @@ But as the installer uses ```apt```, you need any system that supports ```apt```
 Currently psh is only tested in the following environments:
  * Ubuntu 18.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
  * Ubuntu 18.04
+ * Debian 9
 
 **Note on WSL 1**
 zsh and antigen work on WSL 1. But git clone has a permission problem and seems to clone all files with a permission set of 777. Some research resulted in the fact that the problem seems to be on WSL's site and not this script. Till I figure out a way to fix the problem, you will see a warning about insecure directories during the initialization of zsh. Just answer with yes and run the "fix-wsl.sh" shipped with this repo. It will update the permissions of ~/.antigen/bundles from 777 to 755.
