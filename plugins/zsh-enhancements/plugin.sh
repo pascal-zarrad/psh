@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #==================================================================
-# Script Names  : psh-zsh-enhancements
+# Script Names  : psh-zsh-enhancements-installer
 # Description	: Plugins that enhance the zsh experience.
 # Args          : -
 # Author(s)     : Pascal Zarrad, Nico Just

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #==================================================================
-# Script Name   : voronkovich/phpcs.plugin.zsh
+# Script Name   : psh-php-installer
 # Description	: Enables oh-my-zsh's voronkovich/phpcs.plugin.zsh plugin
 # Args          : -
 # Author       	: Nico Just
