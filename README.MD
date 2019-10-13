@@ -23,6 +23,7 @@ Here is a list of every plugin used.
  * alias-finder
  * ant
  * aws
+ * bgnotify
 
 **Theme:**
  * Agnoster
