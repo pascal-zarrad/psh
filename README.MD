@@ -19,19 +19,22 @@ Here is a list of every plugin used.
 
 **Plugins:**
  * [auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions)
+ * [history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
  * [syntax-highlight](https://github.com/zsh-users/zsh-syntax-highlighting)
+ * [zsh-completions](https://github.com/zsh-users/zsh-completions)
  * alias-finder
  * ant
  * aws
  * bgnotify
  * catimg
+ * command-not-found
  * common-aliases
  * composer
  * copydir
- * docker-compose, docker-machine, docker
+ * docker-compose, docker-machine, docker, ctop
  * encode64
  * extract
- * git
+ * git, gitignore
  * golang
  * gradle
  * gulp
@@ -39,13 +42,14 @@ Here is a list of every plugin used.
  * mvn
  * n98-magerun
  * ng
- * node, npm
- * pip
- * python
+ * node, npm, bower, grunt, bundler
+ * phpcs, phpunit
+ * python, pip, virtualenv
  * redis-cli
+ * rsync
  * symfony
  * ubuntu
- * yarn
+ * yarn, yarn-autocompletions
 
 **Theme:**
  * Agnoster
