@@ -152,24 +152,6 @@ fi
 print_success "Installed all apt dependencies for psh!"
 echo ""
 
-# Ask user if he wants to set zsh as default shell
-echo "zsh has been installed and is now usable."
-echo "But it is currently not configured as your default shell."
-echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
-read -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
-if [ $confirmDefaultShell = "y" ] || [ $confirmDefaultShell = "yes" ];
-    then
-        chsh -s $(which zsh)
-        if [ "$?" -ne 0 ]
-            then
-                print_error "Failed to change login shell using chsh."
-                exit
-            else
-                print_success "zsh has been set as your default login shell!"
-                print_success "From now zsh will be loaded after login."
-        fi
-fi
-
 # Install antigen to ~/.antigen/antigen.sh
 echo ""
 echo "The basic installation of zsh is now done."
@@ -284,6 +266,24 @@ print_success "Plugin execution done."
 # Now load oh-my-zsh library
 echo "# Apply everything" >> "${HOME}/.zshrc"
 echo "antigen apply" >> "${HOME}/.zshrc"
+
+# Ask user if he wants to set zsh as default shell
+echo "zsh has been installed and is now usable."
+echo "But it is currently not configured as your default shell."
+echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
+read -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
+if [ $confirmDefaultShell = "y" ] || [ $confirmDefaultShell = "yes" ];
+    then
+        chsh -s $(which zsh)
+        if [ "$?" -ne 0 ]
+            then
+                print_error "Failed to change login shell using chsh."
+                exit
+            else
+                print_success "zsh has been set as your default login shell!"
+                print_success "From now zsh will be loaded after login."
+        fi
+fi
 
 # The installation was successful
 echo ""
