@@ -25,6 +25,7 @@ Here is a list of every plugin used.
  * aws
  * bgnotify
  * catimg
+ * common-aliases
 
 **Theme:**
  * Agnoster
