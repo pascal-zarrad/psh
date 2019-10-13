@@ -15,6 +15,7 @@ readonly DEPENDENCIES=(
     "fonts-powerline"
     "git"
     "curl"
+    "imagemagick"
 )
 
 # Colors used during script execution
