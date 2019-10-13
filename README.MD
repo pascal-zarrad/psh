@@ -21,6 +21,7 @@ Here is a list of every plugin used.
  * [auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions)
  * [syntax-highlight](https://github.com/zsh-users/zsh-syntax-highlighting)
  * alias-finder
+ * ant
 
 **Theme:**
  * Agnoster
