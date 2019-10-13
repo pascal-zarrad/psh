@@ -9,3 +9,4 @@
 #==================================================================
 
 apply_antigen_bundle "yarn"
+apply_antigen_bundle "yarn-autocompletions"

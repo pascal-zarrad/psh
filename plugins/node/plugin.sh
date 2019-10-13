@@ -10,3 +10,6 @@
 
 apply_antigen_bundle "node"
 apply_antigen_bundle "npm"
+apply_antigen_bundle "bower"
+apply_antigen_bundle "grunt"
+apply_antigen_bundle "bundler"
