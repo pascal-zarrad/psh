@@ -37,6 +37,7 @@ Here is a list of every plugin used.
  * gulp
  * jsontools
  * mvn
+ * n98-magerun
 
 **Theme:**
  * Agnoster
