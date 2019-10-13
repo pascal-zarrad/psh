@@ -2,7 +2,7 @@
 
 #==================================================================
 # Script Name   : psh-ubuntu-installer
-# Description	: Enables oh-my-zsh's ubuntuubuntu plugin
+# Description	: Enables oh-my-zsh's ubuntu plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
