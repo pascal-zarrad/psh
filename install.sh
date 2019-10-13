@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck source=/dev/null
 
 #==================================================================
 # Script Name   : psh-installer
