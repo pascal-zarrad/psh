@@ -38,6 +38,7 @@ Here is a list of every plugin used.
  * jsontools
  * mvn
  * n98-magerun
+ * ng
 
 **Theme:**
  * Agnoster
