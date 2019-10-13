@@ -40,7 +40,7 @@ Here is a list of every plugin used.
  * n98-magerun
  * ng
  * node, npm
- *
+ * pip
 
 **Theme:**
  * Agnoster
