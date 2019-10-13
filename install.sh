@@ -77,7 +77,7 @@ packages_installed() {
     if [ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed") -eq 0 ]
         then
             echo -e "$package: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
-            not_installed=(${not_installed[@]} ${package})
+            not_installed=("${not_installed[@]}" "${package}")
         else
             echo -e "$package: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
     fi
@@ -92,9 +92,9 @@ install_apt_packages() {
     yes_no_dialog "Do you want to continue? (y/n): "
     if [ "$use_sudo" -eq 1 ]
         then
-            sudo apt-get install -y "${package_install_command}"
+            eval "sudo apt-get install -y $package_install_command"
         else
-            apt-get install -y "${package_install_command}"
+            eval "apt-get install -y $package_install_command"
     fi
     install_result="$?"
     if [ "$install_result" -ne 0 ]; then
@@ -247,6 +247,7 @@ print_success "Prepared ${HOME}/.zshrc"
 # This keeps this script short.
 echo ""
 echo "Applying all customizations for zsh using plugins..."
+# shellcheck disable=SC2207
 plugins=($(ls plugins))
 for plugin in "${plugins[@]}"
 do
@@ -283,7 +284,7 @@ echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!
 read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
 if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
     then
-        zsh_path=$(which zsh)
+        zsh_path=$(command -v zsh)
         chsh -s "${zsh_path}"
         chsh_result="$?"
         if [ "$chsh_result" -ne 0 ]
