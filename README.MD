@@ -39,7 +39,8 @@ Here is a list of every plugin used.
  * mvn
  * n98-magerun
  * ng
- * node
+ * node, npm
+ *
 
 **Theme:**
  * Agnoster
