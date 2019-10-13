@@ -16,6 +16,7 @@ readonly DEPENDENCIES=(
     "git"
     "curl"
     "imagemagick"
+    "xclip"
 )
 
 # Colors used during script execution
