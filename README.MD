@@ -70,7 +70,75 @@ Also the user would have to manually install powerline fonts on windows, so ther
 
 psh is being installed using an install script that will guide you through the installation process of zsh and all required dependencies. Finally the installer will do all required configuration tasks to get a great experience out of zsh without manual configuration.
 
-*Installation procedure tbd*
+The installation process of psh is simple - you just need git to clone this repo - but the download as zip button can also do the job of getting all required files.
+Note that the described process is for Ubuntu and users that use sudo. It is recommended that you open a shell and navigate to your home directory before executing the required commands.The described commands will install psh into a sub-directory in the directory you're currently in.
+
+### Step by step
+#### Ensure that git is installed
+Use the following concatenated command to ensure that git is installed.
+```
+sudo apt update && sudo apt upgrade && sudo apt install git
+```
+
+#### Clone this repo
+Now clone this repository to collect all required installation files.
+```
+git clone https://github.com/pascal-zarrad/psh.git
+```
+
+#### Go into folder & fix permissions
+Now go into the cloned folder and make the install.sh executable.
+```
+cd psh && chmod +x install.sh
+```
+
+#### Finally, install
+Now execute the install script.
+```
+./install.sh
+```
+
+### As one command
+Execute the following command to install psh using only one console command.
+```
+sudo apt update && sudo apt upgrade && sudo apt install git && git clone https://github.com/pascal-zarrad/psh.git && cd psh && chmod +x install.sh && ./install.sh
+```
+
+## Updating
+Updating psh is as simple as installing it- you just need to pull the newest version from GitHub.
+
+**IMPORTANT:**
+During the update process, your .zshrc will be rebuild. If you made any manual changes to it, those will be lost!
+
+### Step by step
+#### Find your psh installation
+You have to ```cd``` into the directory where psh has been cloned to. If you followed the default installation procedure, it should be installed under ```~/psh/```.
+
+#### Pull changes
+Simply use git pull to get the newest changes from the remote repository.
+```
+git pull
+```
+
+#### Ensure that git did not mess up permissions
+Sometimes git can mess up a files permissions when pulling the newest version of a file.
+Use ```chmod``` to ensure that the installer is executable.
+```
+chmod +x install.sh
+```
+
+#### Re-run the installer
+Now just re-run the installer to install the newest version and update.
+```
+./install.sh
+```
+
+### As one command
+Execute the following command to update psh using only one console command.
+It is assumed that you're already in psh's installation directory!
+```
+git pull && chmod +x install.sh && ./install.sh
+```
 
 ## Contributing
 
