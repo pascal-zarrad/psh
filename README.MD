@@ -28,6 +28,7 @@ Here is a list of every plugin used.
  * common-aliases
  * composer
  * copydir
+ * docker-compose, docker-machine, docker
 
 **Theme:**
  * Agnoster
