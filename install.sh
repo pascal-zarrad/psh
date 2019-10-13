@@ -72,7 +72,6 @@ yes_no_dialog "Do you want to install psh? (y/n): "
 not_installed=()
 packages_installed() {
     local package="$1"
-    # shellcheck disable=SC2046
     if [ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed") -eq 0 ]
         then
             echo -e "$package: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
@@ -114,7 +113,6 @@ done
 sudo_installed="1"
 # Check if sudo is installed
 echo ""
-# shellcheck disable=SC2046
 if [ $(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed") -eq 0 ]
     then
         sudo_installed="0"
@@ -244,7 +242,6 @@ print_success "Prepared ${HOME}/.zshrc"
 # This keeps this script short.
 echo ""
 echo "Applying all customizations for zsh using plugins..."
-# shellcheck disable=SC2207
 plugins=($(ls plugins))
 for plugin in "${plugins[@]}"
 do
@@ -253,7 +250,7 @@ do
         then
             echo ""
             echo "Running plugin: ${plugin}"
-            # shellcheck disable=SC1090
+
             source "$pluginFile"
             plugin_exit_code="$?"
             if [ "$plugin_exit_code" -eq 0 ]
