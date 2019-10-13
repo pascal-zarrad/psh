@@ -29,6 +29,7 @@ Here is a list of every plugin used.
  * composer
  * copydir
  * docker-compose, docker-machine, docker
+ * encode64
 
 **Theme:**
  * Agnoster
