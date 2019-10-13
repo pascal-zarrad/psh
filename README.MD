@@ -24,6 +24,7 @@ Here is a list of every plugin used.
  * ant
  * aws
  * bgnotify
+ * catimg
 
 **Theme:**
  * Agnoster
