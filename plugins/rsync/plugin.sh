@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #==================================================================
-# Script Name   : rsync
+# Script Name   : psh-rysnc-installer
 # Description	: Enables oh-my-zsh's rsync plugin
 # Args          : -
 # Author       	: Nico Just

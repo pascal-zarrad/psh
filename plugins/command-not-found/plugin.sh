@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #==================================================================
-# Script Name   : command-not-found
+# Script Name   : psh-command-not-found-installer
 # Description	: Enables oh-my-zsh's command-not-found plugin
 # Args          : -
 # Author       	: Nico Just
