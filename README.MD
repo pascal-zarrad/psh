@@ -26,6 +26,7 @@ Here is a list of every plugin used.
  * bgnotify
  * catimg
  * common-aliases
+ * composer
 
 **Theme:**
  * Agnoster
