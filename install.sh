@@ -73,7 +73,8 @@ yes_no_dialog "Do you want to install psh? (y/n): "
 not_installed=()
 packages_installed() {
     local package="$1"
-    if [ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed") -eq 0 ]
+    dpgk_install_check_result=$(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed")
+    if [ "$dpgk_install_check_result" -eq 0 ]
         then
             echo -e "$package: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
             not_installed=("${not_installed[@]}" "${package}")
@@ -114,7 +115,8 @@ done
 sudo_installed="1"
 # Check if sudo is installed
 echo ""
-if [ $(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed") -eq 0 ]
+dpgk_sudo_check_result=$(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed")
+if [ "$dpgk_sudo_check_result" -eq 0 ]
     then
         sudo_installed="0"
         echo -e "sudo is ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
