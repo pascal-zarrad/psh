@@ -36,6 +36,7 @@ Here is a list of every plugin used.
  * gradle
  * gulp
  * jsontools
+ * mvn
 
 **Theme:**
  * Agnoster
