@@ -27,6 +27,7 @@ Here is a list of every plugin used.
  * catimg
  * common-aliases
  * composer
+ * copydir
 
 **Theme:**
  * Agnoster
