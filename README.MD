@@ -140,6 +140,14 @@ It is assumed that you're already in psh's installation directory!
 git pull && chmod +x install.sh && ./install.sh
 ```
 
+## Code Quality
+To ensure code quality, the scripts in the repository are being checked by [shellcheck](https://github.com/koalaman/shellcheck).
+Please refer to the shellcheck repository's README on how to install shellcheck on your computer.
+
+To check code quality run: ```shellcheck **/*.sh```
+
+**NOTE:** When pushing to this repository, TravisCI will check your changes.There's no way around the check.
+
 ## Contributing
 
 You are welcome to contribute to psh if you have improvements or bug fixes.

@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2129
 
 #==================================================================
 # Script Name   : psh-installer
@@ -49,8 +50,8 @@ print_success() {
 # A yes/no dialog that can be used for user approvements during installation
 yes_no_dialog() {
     local display_message="$1"
-    read -p "Do you want to continue? (y/n): " confirm
-    if [ $confirm != "y" ] && [ $confirm != "yes" ];
+    read -r -p "$display_message" confirm
+    if [ "$confirm" != "y" ] && [ "$confirm" != "yes" ];
         then
             print_error "Installation aborted..."
             exit 1
@@ -72,10 +73,11 @@ yes_no_dialog "Do you want to install psh? (y/n): "
 not_installed=()
 packages_installed() {
     local package="$1"
-    if [ $(dpkg-query -W -f='${Status}' $package 2>/dev/null | grep -c "ok installed") -eq 0 ]
+    # shellcheck disable=SC2046
+    if [ $(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed") -eq 0 ]
         then
             echo -e "$package: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
-            not_installed=(${not_installed[@]} ${package})
+            not_installed=("${not_installed[@]}" "${package}")
         else
             echo -e "$package: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
     fi
@@ -90,9 +92,9 @@ install_apt_packages() {
     yes_no_dialog "Do you want to continue? (y/n): "
     if [ "$use_sudo" -eq 1 ]
         then
-            sudo apt-get install -y ${package_install_command}
+            eval "sudo apt-get install -y $package_install_command"
         else
-            apt-get install -y ${package_install_command}
+            eval "apt-get install -y $package_install_command"
     fi
     install_result="$?"
     if [ "$install_result" -ne 0 ]; then
@@ -113,10 +115,11 @@ done
 sudo_installed="1"
 # Check if sudo is installed
 echo ""
+# shellcheck disable=SC2046
 if [ $(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed") -eq 0 ]
     then
         sudo_installed="0"
-        echo -e "sudo is ${$COLOR_RED}NOT INSTALLED${COLOR_RESET}"
+        echo -e "sudo is ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
     else
         echo -e "sudo is ${COLOR_GREEN}AVAILABLE${COLOR_RESET}"
 fi
@@ -134,7 +137,7 @@ if [ "${#not_installed[@]}" -ne 0 ]
     then
         if [ "${sudo_installed}" = "0" ];
             then
-                if [ $(id -u) -eq "0" ]
+                if [ "$(id -u)" -eq "0" ]
                     then
                         install_apt_packages $sudo_installed "$package_install_command"
                     else
@@ -168,7 +171,8 @@ if [ -f "${HOME}/.antigen/antigen.zsh" ]
             mkdir "${HOME}/.antigen"
         fi
         curl -L git.io/antigen > "${HOME}/.antigen/antigen.zsh"
-        if [ "$?" -eq 0 ]
+        curl_antigen_result="$?"
+        if [ "$curl_antigen_result" -eq 0 ]
             then
                 print_success "Successfully installed antigen to ${HOME}/.antigen/antigen.zsh"
             else
@@ -201,7 +205,8 @@ echo "Backing up ${HOME}/.zshrc to ${HOME}/.zshrc_unmodified..."
 if [ -f "${HOME}/.zshrc" ]
     then
         cp "${HOME}/.zshrc" "${HOME}/.zshrc_unmodified"
-        if [ "$?" -eq 0 ]
+        cp_result="$?"
+        if [ "$cp_result" -eq 0 ]
             then
                 print_success "Backed up ${HOME}/.zshrc"
             else
@@ -242,6 +247,7 @@ print_success "Prepared ${HOME}/.zshrc"
 # This keeps this script short.
 echo ""
 echo "Applying all customizations for zsh using plugins..."
+# shellcheck disable=SC2207
 plugins=($(ls plugins))
 for plugin in "${plugins[@]}"
 do
@@ -250,8 +256,10 @@ do
         then
             echo ""
             echo "Running plugin: ${plugin}"
+            # shellcheck disable=SC1090
             source "$pluginFile"
-            if [ "$?" -eq 0 ]
+            plugin_exit_code="$?"
+            if [ "$plugin_exit_code" -eq 0 ]
                 then
                     print_success "Run plugin ${plugin}"
                 else
@@ -273,11 +281,13 @@ echo "antigen apply" >> "${HOME}/.zshrc"
 echo "zsh has been installed and is now usable."
 echo "But it is currently not configured as your default shell."
 echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
-read -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
-if [ $confirmDefaultShell = "y" ] || [ $confirmDefaultShell = "yes" ];
+read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
+if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
     then
-        chsh -s $(which zsh)
-        if [ "$?" -ne 0 ]
+        zsh_path=$(command -v zsh)
+        chsh -s "${zsh_path}"
+        chsh_result="$?"
+        if [ "$chsh_result" -ne 0 ]
             then
                 print_error "Failed to change login shell using chsh."
                 exit
