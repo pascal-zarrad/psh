@@ -41,6 +41,7 @@ Here is a list of every plugin used.
  * ng
  * node, npm
  * pip
+ * python
 
 **Theme:**
  * Agnoster
