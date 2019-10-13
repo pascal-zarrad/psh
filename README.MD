@@ -30,6 +30,7 @@ Here is a list of every plugin used.
  * copydir
  * docker-compose, docker-machine, docker
  * encode64
+ * extract
 
 **Theme:**
  * Agnoster
