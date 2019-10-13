@@ -22,6 +22,7 @@ Here is a list of every plugin used.
  * [syntax-highlight](https://github.com/zsh-users/zsh-syntax-highlighting)
  * alias-finder
  * ant
+ * aws
 
 **Theme:**
  * Agnoster
