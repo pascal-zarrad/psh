@@ -34,6 +34,7 @@ Here is a list of every plugin used.
  * git
  * golang
  * gradle
+ * gulp
 
 **Theme:**
  * Agnoster
