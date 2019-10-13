@@ -1,4 +1,4 @@
-# psh
+# psh [![Build Status](https://travis-ci.org/pascal-zarrad/psh.svg?branch=master)](https://travis-ci.org/pascal-zarrad/psh)
 psh - which stands for Pascal's Shell is a configuration for zsh that I use on a daily basis. It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh) that help myself and hopefully also others to grow their productivity.
 
 This installer enables the fast installation of zsh, antigen (with that oh-my-zsh) other stuff that is required for a great zsh experience.
