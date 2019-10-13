@@ -33,6 +33,7 @@ Here is a list of every plugin used.
  * extract
  * git
  * golang
+ * gradle
 
 **Theme:**
  * Agnoster
