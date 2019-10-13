@@ -31,6 +31,7 @@ Here is a list of every plugin used.
  * docker-compose, docker-machine, docker
  * encode64
  * extract
+ * git
 
 **Theme:**
  * Agnoster
