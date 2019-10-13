@@ -45,6 +45,7 @@ Here is a list of every plugin used.
  * redis-cli
  * symfony
  * ubuntu
+ * yarn
 
 **Theme:**
  * Agnoster
