@@ -12,7 +12,8 @@ if [ -d "${HOME}/.antigen/bundles" ]
     then
         echo "Fixing permissions of ${HOME}/.antigen/bundles..."
         chmod -R 755 "${HOME}/.antigen/bundles"
-        if [ "$?" -eq 0 ]
+        chmod_result="$?"
+        if [ "$chmod_result" -eq 0 ]
             then
                 echo "Succesfully fixed permissions of ${HOME}/.antigen/bundles"
             else
