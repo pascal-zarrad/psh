@@ -21,5 +21,5 @@ Use the following checklist to ensure your PR meets all contribution requirement
  - [ ] All issues solved by this PR are referenced under the appropriate section.
  - [ ] Test scenarios that tell the tester the expected behavior are present (does not apply for documentation changes an so on).
  - [ ] The labels that apply have been set. 
-**Please first read our [contributing](https://github.com/pascal-zarrad/psh/raw/master/.github/PULL_REQUEST_TEMPLATE.md) guidelines before creating a pull request!**
+**Please first read our [contributing](https://github.com/pascal-zarrad/psh/blob/master/.github/PULL_REQUEST_TEMPLATE.md) guidelines before creating a pull request!**
 **Please remove the entire checklist section before submitting your pull request, as it is only to help contributors**
