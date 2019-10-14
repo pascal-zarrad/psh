@@ -4,7 +4,7 @@ This guidelines were created to keep up a minimum standard of quality and ensure
 
 ### Who is allowed to contribute?
 Everyone is allowed to contribute to the project. Every piece of code, documentation or even issue reporting can help to improve psh.
-You just have to follow this guidelines and our [Code of Conduct](https://github.com/pascal-zarrad/psh/raw/master/CODE_OF_CONDUCT.md).
+You just have to follow this guidelines and our [Code of Conduct](https://github.com/pascal-zarrad/psh/blob/master/CODE_OF_CONDUCT.md).
 
 ### First time contributors
 To get started, a great way is to pick a issue that is marked as good first issue. 
