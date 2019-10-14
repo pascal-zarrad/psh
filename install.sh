@@ -170,9 +170,7 @@ if [ -f "${HOME}/.antigen/antigen.zsh" ]
         if ! [ -d "${HOME}/.antigen" ]; then
             mkdir "${HOME}/.antigen"
         fi
-        curl -L git.io/antigen > "${HOME}/.antigen/antigen.zsh"
-        curl_antigen_result="$?"
-        if [ "$curl_antigen_result" -eq 0 ]
+        if curl -L git.io/antigen > "${HOME}/.antigen/antigen.zsh"
             then
                 print_success "Successfully installed antigen to ${HOME}/.antigen/antigen.zsh"
             else
@@ -204,9 +202,7 @@ echo ""
 echo "Backing up ${HOME}/.zshrc to ${HOME}/.zshrc_unmodified..."
 if [ -f "${HOME}/.zshrc" ]
     then
-        cp "${HOME}/.zshrc" "${HOME}/.zshrc_unmodified"
-        cp_result="$?"
-        if [ "$cp_result" -eq 0 ]
+        if cp "${HOME}/.zshrc" "${HOME}/.zshrc_unmodified"
             then
                 print_success "Backed up ${HOME}/.zshrc"
             else
@@ -254,10 +250,7 @@ do
         then
             echo ""
             echo "Running plugin: ${plugin}"
-
-            source "$pluginFile"
-            plugin_exit_code="$?"
-            if [ "$plugin_exit_code" -eq 0 ]
+            if source "$pluginFile"
                 then
                     print_success "Run plugin ${plugin}"
                 else
@@ -285,15 +278,13 @@ read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaul
 if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
     then
         zsh_path=$(command -v zsh)
-        chsh -s "${zsh_path}"
-        chsh_result="$?"
-        if [ "$chsh_result" -ne 0 ]
+        if chsh -s "${zsh_path}"
             then
-                print_error "Failed to change login shell using chsh."
-                exit
-            else
                 print_success "zsh has been set as your default login shell!"
                 print_success "From now zsh will be loaded after login."
+            else
+                print_error "Failed to change login shell using chsh."
+                exit
         fi
 fi
 
