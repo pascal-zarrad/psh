@@ -13,7 +13,7 @@ The targets of psh are:
 
 ## What is used
 Some of the best known open source projects come together in psh.
-Here is a list of every plugin used.
+Here is a list of every plugin used:
 
 **Framework and package management:**
  * [Antigen](https://github.com/zsh-users/antigen)
