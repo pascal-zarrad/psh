@@ -260,6 +260,32 @@ include_templates() {
     echo ""
 }
 
+# Print warnings about template files that do not contain the #TEMPLATE=XXX header
+print_template_warnings() {
+echo ""
+    echo "Checking for invalid template files..."
+    templateFiles=()
+    while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
+    if [ ${#templateFiles[@]} -ge 1 ]
+        then
+            for templateFile in ${templateFiles[@]}
+            do
+                templateFile="templates/${templateFile}"
+                if read -r templateHeader < "$templateFile"
+                    then
+                        if ! grep -q "$TEMPLATE_DIRECTIVE" <<< "$templateHeader"
+                            then
+                                print_warning "Not applied template due to missing template directive: ${templateFile}!"
+
+                        fi
+                    else
+                        print_error "Failed to read teamplate file ${templateFile}!"
+                fi
+            done
+    fi
+    echo ""
+}
+
 # Now reset ~/.zshrc, as we build our own only using antigen
 # to load things
 {
@@ -334,7 +360,11 @@ include_templates "$TEMPLATE_AFTER_PLUGINS_BEFOIRE_ANTIGEN_APPLY"
     echo "antigen apply"
 } >> "${HOME}/.zshrc"
 
+# Include templates at the end of the .zshrc
 include_templates "$TEMPLATE_END"
+
+# Print warnings for templates without the template directive
+print_template_warnings
 
 # Ask user if he wants to set zsh as default shell
 echo "zsh has been installed and is now usable."
