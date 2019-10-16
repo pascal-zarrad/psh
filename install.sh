@@ -26,7 +26,7 @@ readonly TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
 readonly TEMPLATE_START="START"
 readonly TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH="BETWEEN_ANTIGEN_AND_OH_MY_ZSH"
 readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
-readonly TEMPLATE_AFTER_PLUGINS_BEFOIRE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFOIRE_ANTIGEN_APPLY"
+readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
 readonly TEMPLATE_END="END"
 
 # Colors used during script execution
@@ -341,7 +341,7 @@ print_success "Plugin execution done."
 echo ""
 
 # Include templates after plugins being loaded but before antigen settings are applied
-include_templates "$TEMPLATE_AFTER_PLUGINS_BEFOIRE_ANTIGEN_APPLY"
+include_templates "$TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
 
 {
     # Now finish by telling antigen to apply the bundles and themes
