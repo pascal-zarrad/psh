@@ -3,6 +3,7 @@ psh - which stands for Pascal's Shell is a configuration for zsh that I use on a
 
 This installer enables the fast installation of zsh, antigen (bundled with oh-my-zsh) and other stuff that is required for a great zsh experience.
 The installer builds always a custom .zshrc which can be modified by adding own customizations to the plugins folder.
+To make customizations even easier, psh has a template system that allows the import of personalized .zshrc snippets that are composed together with the generated configuration!
 
 ![PSH Installer](https://github.com/pascal-zarrad/psh/raw/master/.github/MEDIA/psh.gif)
 
@@ -145,6 +146,23 @@ It is assumed that you're already in psh's installation directory!
 ```
 git pull && chmod +x install.sh && ./install.sh
 ```
+
+## Creating templates
+Templates are the easiest way to customize psh to fit your needs.
+Just create a ```yourtemplate.template.zshrc``` in the ```templates``` directory of the project.
+
+The first line of the template has to have the following format:
+```
+#PSH_TEMPLATE=<TYPE>
+```
+Where __TYPE__ stands indirectly for the place where the template will be placed in the ```.zshrc```.
+
+The following types are available:
+ - START
+ - BETWEEN_ANTIGEN_AND_OH_MY_ZSH
+ - BETWEEN_OH_MY_ZSH_AND_PLUGINS
+ - AFTER_PLUGINS_BEFOIRE_ANTIGEN_APPLY
+ - END
 
 ## Code Quality
 To ensure code quality, the scripts in the repository are being checked by [shellcheck](https://github.com/koalaman/shellcheck).
