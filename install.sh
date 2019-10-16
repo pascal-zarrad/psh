@@ -227,48 +227,38 @@ echo "Preparing ${HOME}/.zshrc..."
 # Include templates into the new .zshrc
 include_templates() {
     templateType="$1"
-    echo ""
-    echo "Checking for template files of type: $templateType..."
     echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
     templateFiles=()
     while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
-    if [ "${#templateFiles[@]}" -ge 1 ]
-        then
-            for templateFile in ${templateFiles[@]}
-            do
-                templateFile="templates/${templateFile}"
-                if read -r templateHeader < "$templateFile"
-                    then
-                        if [ "$templateHeader" = "${TEMPLATE_DIRECTIVE}${templateType}" ]
-                            then
-                                echo "Applying template file ${templateFile}"
-                                if tail -n +2 "$templateFile" >> "${HOME}/.zshrc"
-                                    then
-                                        print_success "Applied template file ${templateFile}!"
-                                    else
-                                        print_error "Failed to apply template file ${templateFile}!"
-                                        exit 1
-                                fi
-                        fi
-                    else
-                        print_error "Failed to read teamplate file ${templateFile}!"
-                fi
-            done
-        else
-            echo "No template files of type $templateType have been defined!"
-    fi
-    echo ""
+    for templateFile in "${templateFiles[@]}"
+    do
+        templateFile="templates/${templateFile}"
+        if read -r templateHeader < "$templateFile"
+            then
+                if [ "$templateHeader" = "${TEMPLATE_DIRECTIVE}${templateType}" ]
+                        then
+                            echo "Applying template file ${templateFile}"
+                            if tail -n +2 "$templateFile" >> "${HOME}/.zshrc"
+                                then
+                                    print_success "Applied template file ${templateFile}!"
+                                else
+                                    print_error "Failed to apply template file ${templateFile}!"
+                                    exit 1
+                            fi
+                    fi
+                else
+                    print_error "Failed to read teamplate file ${templateFile}!"
+            fi
+    done
 }
 
 # Print warnings about template files that do not contain the #TEMPLATE=XXX header
 print_template_warnings() {
-echo ""
-    echo "Checking for invalid template files..."
     templateFiles=()
     while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
     if [ "${#templateFiles[@]}" -ge 1 ]
         then
-            for templateFile in ${templateFiles[@]}
+            for templateFile in "${templateFiles[@]}"
             do
                 templateFile="templates/${templateFile}"
                 if read -r templateHeader < "$templateFile"
@@ -283,7 +273,6 @@ echo ""
                 fi
             done
     fi
-    echo ""
 }
 
 # Now reset ~/.zshrc, as we build our own only using antigen
@@ -349,6 +338,7 @@ do
 done
 echo ""
 print_success "Plugin execution done."
+echo ""
 
 # Include templates after plugins being loaded but before antigen settings are applied
 include_templates "$TEMPLATE_AFTER_PLUGINS_BEFOIRE_ANTIGEN_APPLY"
@@ -367,6 +357,8 @@ include_templates "$TEMPLATE_END"
 print_template_warnings
 
 # Ask user if he wants to set zsh as default shell
+echo ""
+echo ""
 echo "zsh has been installed and is now usable."
 echo "But it is currently not configured as your default shell."
 echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
