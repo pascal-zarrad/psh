@@ -232,7 +232,7 @@ include_templates() {
     echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
     templateFiles=()
     while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
-    if [ ${#templateFiles[@]} -ge 1 ]
+    if [ "${#templateFiles[@]}" -ge 1 ]
         then
             for templateFile in ${templateFiles[@]}
             do
@@ -266,7 +266,7 @@ echo ""
     echo "Checking for invalid template files..."
     templateFiles=()
     while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
-    if [ ${#templateFiles[@]} -ge 1 ]
+    if [ "${#templateFiles[@]}" -ge 1 ]
         then
             for templateFile in ${templateFiles[@]}
             do
