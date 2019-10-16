@@ -1,8 +1,8 @@
 # psh [![Build Status](https://travis-ci.org/pascal-zarrad/psh.svg?branch=master)](https://travis-ci.org/pascal-zarrad/psh)
-psh - which stands for Pascal's Shell is a configuration tool for zsh that I use on a daily basis. It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh) that help myself and hopefully also others to grow their productivity.
+psh - which stands for Pascal's Shell is a configuration tool for zsh. It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh) that helps myself and hopefully also others to grow their productivity.
 
 This installer enables the fast installation of zsh, antigen (bundled with oh-my-zsh) and other stuff that is required for a great zsh experience.
-The installer builds always a custom .zshrc which can be modified by adding own customizations to the plugins folder.
+The installer generates always a custom .zshrc which can be modified by adding own customizations to the plugins folder.
 To make customizations even easier, psh has a template system that allows the import of personalized .zshrc snippets that are composed together with the generated configuration!
 
 ![PSH Installer](https://github.com/pascal-zarrad/psh/raw/master/.github/MEDIA/psh.gif)
