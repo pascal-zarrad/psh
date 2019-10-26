@@ -53,9 +53,9 @@ print_success "Completed template search!"
 
 # Include templates into the new .zshrc
 include_templates() {
-    templateType="$1"
+    local templateType="$1"
     echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
-    currentTemplateFiles=()
+    local currentTemplateFiles=()
     case $templateType in
             "$TEMPLATE_START")
                 currentTemplateFiles=("${templates_start[@]}")
@@ -75,7 +75,7 @@ include_templates() {
         esac
     for templateFile in "${currentTemplateFiles[@]}"
     do
-        currentTemplateFile="templates/${templateFile}"
+        local currentTemplateFile="templates/${templateFile}"
         echo "Applying template file ${templateFile}"
         if tail -n +2 "$currentTemplateFile" >> "${HOME}/.zshrc"
             then

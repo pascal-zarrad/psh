@@ -100,14 +100,17 @@ packages_installed() {
 install_apt_packages() {
     local use_sudo="$1"
     local package_install_command="$2"
+    IFS=' ' read -r -a package_install_arguments <<< "$package_install_command"
     echo "The installer has to install the following packages through apt (using sudo if available): "
+    echo "During package installation, an apt update & upgrade are done automatically!"
     echo -e "${COLOR_CYAN}${package_install_command}${COLOR_RESET}"
     yes_no_dialog "Do you want to continue? (y/n): "
+    echo "${package_install_arguments[@]}"
     if [ "$use_sudo" -eq 1 ]
         then
-            eval "sudo apt-get install -y $package_install_command"
+            sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y "${package_install_arguments[@]}"
         else
-            eval "apt-get install -y $package_install_command"
+            apt-get update && apt-get upgrade && apt-get install -y "${package_install_arguments[@]}"
     fi
     install_result="$?"
     if [ "$install_result" -ne 0 ]; then
