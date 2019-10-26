@@ -21,6 +21,7 @@ But as the installer uses ```apt```, you need any system that supports ```apt```
 
 Currently psh is only tested in the following environments:
  * Ubuntu 18.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
+ * Ubuntu 18.04 (Windows Subsystem for Linux 2)
  * Ubuntu 18.04
  * Debian 9
 
