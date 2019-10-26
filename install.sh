@@ -1,5 +1,4 @@
 #!/bin/bash
-# shellcheck source=/dev/null
 
 #==================================================================
 # Script Name   : psh-installer
@@ -9,6 +8,10 @@
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
+
+# ---- START: Constants used by PSH
+# All constants that not belong to plugins should be listed below and not
+# in sourced scripts, to have a central overview of them.
 
 # Dependencies that need to be installed with root privileges trhough apt-get
 readonly DEPENDENCIES=(
@@ -40,6 +43,7 @@ readonly COLOR_YELLOW="\e[33m"
 readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
 readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
 readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
+# ---- END: Constants used by PSH
 
 # Print an error message
 print_error() {
@@ -224,56 +228,10 @@ echo ""
 
 echo "Preparing ${HOME}/.zshrc..."
 
-# Include templates into the new .zshrc
-include_templates() {
-    templateType="$1"
-    echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
-    templateFiles=()
-    while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
-    for templateFile in "${templateFiles[@]}"
-    do
-        templateFile="templates/${templateFile}"
-        if read -r templateHeader < "$templateFile"
-            then
-                if [ "$templateHeader" = "${TEMPLATE_DIRECTIVE}${templateType}" ]
-                        then
-                            echo "Applying template file ${templateFile}"
-                            if tail -n +2 "$templateFile" >> "${HOME}/.zshrc"
-                                then
-                                    print_success "Applied template file ${templateFile}!"
-                                else
-                                    print_error "Failed to apply template file ${templateFile}!"
-                                    exit 1
-                            fi
-                    fi
-                else
-                    print_error "Failed to read teamplate file ${templateFile}!"
-            fi
-    done
-}
-
-# Print warnings about template files that do not contain the #TEMPLATE=XXX header
-print_template_warnings() {
-    templateFiles=()
-    while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
-    if [ "${#templateFiles[@]}" -ge 1 ]
-        then
-            for templateFile in "${templateFiles[@]}"
-            do
-                templateFile="templates/${templateFile}"
-                if read -r templateHeader < "$templateFile"
-                    then
-                        if ! grep -q "$TEMPLATE_DIRECTIVE" <<< "$templateHeader"
-                            then
-                                print_warning "Not applied template due to missing template directive: ${templateFile}!"
-
-                        fi
-                    else
-                        print_error "Failed to read teamplate file ${templateFile}!"
-                fi
-            done
-    fi
-}
+# Load template engine
+echo ""
+source "lib/template_engine.sh"
+echo ""
 
 # Now reset ~/.zshrc, as we build our own only using antigen
 # to load things
@@ -326,11 +284,12 @@ do
         then
             echo ""
             echo "Running plugin: ${plugin}"
+            # shellcheck source=/dev/null
             if source "$pluginFile"
                 then
-                    print_success "Run plugin ${plugin}"
+                    print_success "Successfully executed plugin ${plugin}"
                 else
-                    print_warning "Failed to run plugin ${plugin}!"
+                    print_warning "Failed to execute plugin ${plugin}!"
             fi
         else
             print_warning "Plugin ${plugin} has no plugin.sh, skipping!"
@@ -359,8 +318,8 @@ print_template_warnings
 # Ask user if he wants to set zsh as default shell
 echo ""
 echo ""
-echo "zsh has been installed and is now usable."
-echo "But it is currently not configured as your default shell."
+echo "zsh has been installed and is configured!"
+echo "It is currently not configured as your default shell."
 echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
 read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
 if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
