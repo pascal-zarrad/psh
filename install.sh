@@ -10,6 +10,10 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
+# ---- START: Constants used by PSH
+# All constants that not belong to plugins should be listed below and not
+# in sourced scripts, to have a central overview of them.
+
 # Dependencies that need to be installed with root privileges trhough apt-get
 readonly DEPENDENCIES=(
     "zsh"
@@ -40,6 +44,7 @@ readonly COLOR_YELLOW="\e[33m"
 readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
 readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
 readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
+# ---- END: Constants used by PSH
 
 # Print an error message
 print_error() {
