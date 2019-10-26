@@ -1,5 +1,4 @@
 #!/bin/bash
-# shellcheck source=/dev/null
 
 #==================================================================
 # Script Name   : psh-installer
@@ -285,6 +284,7 @@ do
         then
             echo ""
             echo "Running plugin: ${plugin}"
+            # shellcheck source=/dev/null
             if source "$pluginFile"
                 then
                     print_success "Successfully executed plugin ${plugin}"
