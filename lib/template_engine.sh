@@ -21,7 +21,7 @@ templateFiles=()
 while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
 for templateFile in "${templateFiles[@]}"
 do
-    if [ -s "templates/$templateFile" ]; then
+    if [[ "$templateFile" =~ \.template.zshrc$ ]] && [ -s "templates/$templateFile" ]; then
         if read -r templateHeader < "templates/$templateFile"
             then
                 case $templateHeader in
