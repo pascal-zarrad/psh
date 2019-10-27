@@ -195,23 +195,8 @@ if [ -f "${HOME}/.antigen/antigen.zsh" ]
         fi
 fi
 
-# Function that checks if antigen bundle is loaded or not
-# and then adds the bundle to the .zshrc
-apply_antigen_bundle() {
-    antigen_bundle="$1"
-    if ! grep -q "$antigen_bundle" "${HOME}/.zshrc" ; then
-        echo "antigen bundle ${antigen_bundle}" >> "${HOME}/.zshrc"
-    fi
-}
-
-# Function that checks if antigen theme is loaded or not
-# and then adds the theme to the .zshrc
-apply_antigen_theme() {
-    antigen_bundle="$1"
-    if ! grep -q "antigen theme ${antigen_bundle}" "${HOME}/.zshrc" ; then
-        echo "antigen theme ${antigen_bundle}" >> "${HOME}/.zshrc"
-    fi
-}
+# Load plugin API
+source "lib/plugin_api.sh"
 
 # First of all backup .zshrc
 echo ""
