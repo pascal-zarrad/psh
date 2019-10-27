@@ -45,7 +45,7 @@ readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
 readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
 # ---- END: Constants used by PSH
 
-# Print help list
+# Function to print usage of install.sh
 cmd_help() {
     echo "Usage of install.sh:"
     echo "install.sh [--disable-templates] [--help]"
