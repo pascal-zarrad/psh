@@ -53,6 +53,11 @@ print_success "Completed template search!"
 
 # Include templates into the new .zshrc
 include_templates() {
+    # $start_arg_disable_template_engine is set on install.sh
+    # shellcheck disable=SC2154
+    if [ "$start_arg_disable_template_engine" -eq 1 ]; then
+        return
+    fi
     local templateType="$1"
     echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
     local currentTemplateFiles=()
@@ -89,6 +94,11 @@ include_templates() {
 
 # Print warnings about template files that do not contain the #TEMPLATE=[TYPE]] header
 print_template_warnings() {
+    # $start_arg_disable_template_engine is set on install.sh
+    # shellcheck disable=SC2154
+    if [ "$start_arg_disable_template_engine" -eq 1 ]; then
+        return
+    fi
     if [ "${#templates_invalid[@]}" -ge 1 ]
         then
             for templateFile in "${templates_invalid[@]}"

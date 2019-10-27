@@ -45,6 +45,37 @@ readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
 readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
 # ---- END: Constants used by PSH
 
+# Function to print usage of install.sh
+cmd_help() {
+    echo "Usage of install.sh:"
+    echo "install.sh [--disable-templates] [--help]"
+    echo ""
+    echo "--help                - Prints this help page"
+    echo "--disable-templates   - Disables inclusion of templates"
+    echo ""
+    exit
+}
+
+# Our variables that are set by the start parameters
+start_arg_disable_template_engine=0
+# Process arguments/start parameters
+# and set values to use
+while test $# != 0
+do
+    case "$1" in
+        --disable-templates)
+            start_arg_disable_template_engine=1
+            ;;
+        --help)
+            cmd_help
+            ;;
+        *)
+            cmd_help
+            ;;
+    esac
+    shift
+done
+
 # Print an error message
 print_error() {
     echo -e "${ERROR_PREFIX} $1"
