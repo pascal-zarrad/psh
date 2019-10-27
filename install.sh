@@ -76,7 +76,6 @@ do
     shift
 done
 
-
 # Print an error message
 print_error() {
     echo -e "${ERROR_PREFIX} $1"
