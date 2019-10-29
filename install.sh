@@ -144,9 +144,9 @@ install_apt_packages() {
     echo "${package_install_arguments[@]}"
     if [ "$use_sudo" -eq 1 ]
         then
-            sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y "${package_install_arguments[@]}"
+            sudo apt-get update && sudo apt-get install -y "${package_install_arguments[@]}"
         else
-            apt-get update && apt-get upgrade && apt-get install -y "${package_install_arguments[@]}"
+            apt-get update && apt-get install -y "${package_install_arguments[@]}"
     fi
     install_result="$?"
     if [ "$install_result" -ne 0 ]; then
