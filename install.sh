@@ -370,7 +370,7 @@ echo "It is currently not configured as your default shell."
 echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
 if [ "$start_arg_run_unattended" -eq 0 ]
     then
-        read -r -p "Do you want to set zsh as your default shell? (y/n): "
+        read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
         if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
             then
                change_shell_to_zsh
