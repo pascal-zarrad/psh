@@ -53,6 +53,7 @@ cmd_help() {
     echo "--help                - Prints this help page"
     echo "--disable-templates   - Disables inclusion of templates"
     echo "--disable-plugins     - Disable plugin execution"
+    echo "--unattended          - Run without user interaction (except password prompts)"
     echo ""
     exit
 }
@@ -60,6 +61,7 @@ cmd_help() {
 # Variables (flags) that are set by the start parameters
 start_arg_disable_template_engine=0
 start_arg_disable_plugin_system=0
+start_arg_run_unattended=0
 # Process arguments/start parameters
 # and set values to use
 while test $# != 0
@@ -70,6 +72,9 @@ do
             ;;
         --disable-plugins)
             start_arg_disable_plugin_system=1
+            ;;
+        --unattended)
+            start_arg_run_unattended=1
             ;;
         --help)
             cmd_help
@@ -97,13 +102,15 @@ print_success() {
 }
 
 # A yes/no dialog that can be used for user approvements during installation
-yes_no_dialog() {
-    local display_message="$1"
-    read -r -p "$display_message" confirm
-    if [ "$confirm" != "y" ] && [ "$confirm" != "yes" ];
-        then
-            print_error "Installation aborted..."
-            exit 1
+yes_no_abort_dialog() {
+    if [ "$start_arg_run_unattended" -eq 0 ]; then
+        local display_message="$1"
+        read -r -p "$display_message" confirm
+        if [ "$confirm" != "y" ] && [ "$confirm" != "yes" ];
+            then
+                print_error "Installation aborted..."
+                exit 1
+        fi
     fi
 }
 
@@ -116,7 +123,7 @@ If you have sudo installed, the installer will automatically try to install the 
 # Ask user if he wants to start installation
 # Ask the user if he really wants to install the cron
 echo ""
-yes_no_dialog "Do you want to install psh? (y/n): "
+yes_no_abort_dialog "Do you want to install psh? (y/n): "
 
 # Check which dependencies are installed and which not
 not_installed=()
@@ -140,7 +147,7 @@ install_apt_packages() {
     echo "The installer has to install the following packages through apt (using sudo if available): "
     echo "During package installation, an apt update & upgrade are done automatically!"
     echo -e "${COLOR_CYAN}${package_install_command}${COLOR_RESET}"
-    yes_no_dialog "Do you want to continue? (y/n): "
+    yes_no_abort_dialog "Do you want to continue? (y/n): "
     echo "${package_install_arguments[@]}"
     if [ "$use_sudo" -eq 1 ]
         then
@@ -343,24 +350,33 @@ include_templates "$TEMPLATE_END"
 # Print warnings for templates without the template directive
 print_template_warnings
 
+change_shell_to_zsh() {
+    zsh_path=$(command -v zsh)
+    if chsh -s "${zsh_path}"
+        then
+            print_success "zsh has been set as your default login shell!"
+            print_success "From now zsh will be loaded after login."
+        else
+            print_error "Failed to change login shell using chsh."
+            exit 1
+fi
+}
+
 # Ask user if he wants to set zsh as default shell
 echo ""
 echo ""
 echo "zsh has been installed and is configured!"
 echo "It is currently not configured as your default shell."
 echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
-read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
-if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
+if [ "$start_arg_run_unattended" -eq 0 ]
     then
-        zsh_path=$(command -v zsh)
-        if chsh -s "${zsh_path}"
+        read -r -p "Do you want to set zsh as your default shell? (y/n): "
+        if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
             then
-                print_success "zsh has been set as your default login shell!"
-                print_success "From now zsh will be loaded after login."
-            else
-                print_error "Failed to change login shell using chsh."
-                exit 1
+               change_shell_to_zsh
         fi
+    else
+        change_shell_to_zsh
 fi
 
 # The installation was successful
