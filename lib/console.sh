@@ -33,6 +33,8 @@ print_success() {
 
 # A yes/no dialog that can be used for user approvements during installation
 yes_no_abort_dialog() {
+    # start_arg_run_unattended is set in ../install.sh
+    # shellcheck disable=SC2154
     if [ "$start_arg_run_unattended" -eq 0 ]; then
         local display_message="$1"
         read -r -p "$display_message" confirm
