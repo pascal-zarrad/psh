@@ -52,7 +52,7 @@ done
 print_success "Completed template search!"
 
 # Include templates into the new .zshrc
-include_templates() {
+function include_templates() {
     # $start_arg_disable_template_engine is set on install.sh
     # shellcheck disable=SC2154
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
@@ -93,7 +93,7 @@ include_templates() {
 }
 
 # Print warnings about template files that do not contain the #TEMPLATE=[TYPE]] header
-print_template_warnings() {
+function print_template_warnings() {
     # $start_arg_disable_template_engine is set on install.sh
     # shellcheck disable=SC2154
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
