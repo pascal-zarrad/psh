@@ -100,50 +100,22 @@ If you have sudo installed, the installer will automatically try to install the 
 print_message ""
 yes_no_abort_dialog "Do you want to install psh? (y/n): "
 
-# Check which dependencies are installed and which not
-not_installed=()
-packages_installed() {
-    local package="$1"
-    dpgk_install_check_result=$(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed")
-    if [ "$dpgk_install_check_result" -eq 0 ]
-        then
-            print_message "$package: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
-            not_installed=("${not_installed[@]}" "${package}")
-        else
-            print_message "$package: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
-    fi
-}
-
-# Install dependencies. Use sudo if available.
-install_apt_packages() {
-    local use_sudo="$1"
-    local package_install_command="$2"
-    IFS=' ' read -r -a package_install_arguments <<< "$package_install_command"
-    print_message "The installer has to install the following packages through apt (using sudo if available): "
-    print_message "During package installation, an apt update & upgrade are done automatically!"
-    print_message "${COLOR_CYAN}${package_install_command}${COLOR_RESET}"
-    yes_no_abort_dialog "Do you want to continue? (y/n): "
-    print_message "${package_install_arguments[@]}"
-    if [ "$use_sudo" -eq 1 ]
-        then
-            sudo apt-get update && sudo apt-get install -y "${package_install_arguments[@]}"
-        else
-            apt-get update && apt-get install -y "${package_install_arguments[@]}"
-    fi
-    install_result="$?"
-    if [ "$install_result" -ne 0 ]; then
-        print_error "An error occured during installation of dependencies."
-        print_error "Please take a look at the problem and revolve the problem manually!"
-        exit 1
-    fi
-}
+# We currently only support debian based systems, so just source package management functions
+# using apt.
+source "lib/distdep/deb_based/package_management.sh"
 
 # Analyse which dependencies are already installed
 print_message ""
 print_message "Checking dependencies..."
-for dependency in "${DEPENDENCIES[@]}"
+not_installed=("$(packages_installed ${DEPENDENCIES[@]})")
+for dependency in ${DEPENDENCIES[@]}
 do
-    packages_installed "$dependency"
+    if [[ " ${not_installed[@]} " =~ " ${dependency} " ]]
+        then
+                print_message "$dependency: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
+        else
+                print_message "$dependency: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
+    fi
 done
 
 sudo_installed="1"
@@ -325,7 +297,7 @@ include_templates "$TEMPLATE_END"
 # Print warnings for templates without the template directive
 print_template_warnings
 
-change_shell_to_zsh() {
+function change_shell_to_zsh() {
     zsh_path=$(command -v zsh)
     if chsh -s "${zsh_path}"
         then
