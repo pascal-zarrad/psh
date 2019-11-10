@@ -107,14 +107,14 @@ source "lib/distdep/deb_based/package_management.sh"
 # Analyse which dependencies are already installed
 print_message ""
 print_message "Checking dependencies..."
-not_installed=("$(packages_installed ${DEPENDENCIES[@]})")
-for dependency in ${DEPENDENCIES[@]}
+not_installed=("$(packages_installed "${DEPENDENCIES[@]}")")
+for dependency in "${DEPENDENCIES[@]}"
 do
-    if [[ " ${not_installed[@]} " =~ " ${dependency} " ]]
+    if [[ " ${not_installed[*]} " =~ " ${dependency} " ]]
         then
-                print_message "$dependency: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
+            print_message "$dependency: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
         else
-                print_message "$dependency: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
+            print_message "$dependency: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
     fi
 done
 
@@ -135,11 +135,12 @@ print_message ""
 package_install_command=""
 for package in "${not_installed[@]}"
 do
+    echo "$package"
     package_install_command+="${package} "
 done
 
 # Handle package installation based on environment
-if [ "${#not_installed[@]}" -ne 0 ]
+if [ ! -z "${package_install_command// }" ]
     then
         if [ "${sudo_installed}" = "0" ];
             then
