@@ -9,10 +9,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-# ---- START: Constants used by PSH
-# All constants that not belong to plugins should be listed below and not
-# in sourced scripts, to have a central overview of them.
-
 # Dependencies that need to be installed with root privileges trhough apt-get
 readonly DEPENDENCIES=(
     "zsh"
@@ -32,19 +28,6 @@ readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
 readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
 readonly TEMPLATE_END="END"
 
-# Colors used during script execution
-readonly COLOR_RESET="\e[0m"
-readonly COLOR_RED="\e[31m"
-readonly COLOR_GREEN="\e[32m"
-readonly COLOR_CYAN="\e[36m"
-readonly COLOR_YELLOW="\e[33m"
-
-# Prefixes
-readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
-readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
-readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
-# ---- END: Constants used by PSH
-
 # Function to print usage of install.sh
 cmd_help() {
     print_message "Usage of install.sh:"
@@ -61,7 +44,7 @@ cmd_help() {
 # Variables (flags) that are set by the start parameters
 start_arg_disable_template_engine=0
 start_arg_disable_plugin_system=0
-start_arg_run_unattended=0
+start_arg_run_unattended_parameter=0
 # Process arguments/start parameters
 # and set values to use
 while test $# != 0
@@ -74,7 +57,7 @@ do
             start_arg_disable_plugin_system=1
             ;;
         --unattended)
-            start_arg_run_unattended=1
+            start_arg_run_unattended_parameter=1
             ;;
         --help)
             cmd_help
@@ -98,7 +81,7 @@ If you have sudo installed, the installer will automatically try to install the 
 # Ask user if he wants to start installation
 # Ask the user if he really wants to install the cron
 print_message ""
-yes_no_abort_dialog "Do you want to install psh? (y/n): "
+yes_no_abort_dialog "Do you want to install psh? (y/n): " "${start_arg_run_unattended_parameter}"
 
 # We currently only support debian based systems, so just source package management functions
 # using apt.
@@ -316,7 +299,7 @@ print_message ""
 print_message "zsh has been installed and is configured!"
 print_message "It is currently not configured as your default shell."
 print_message "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
-if [ "$start_arg_run_unattended" -eq 0 ]
+if [ "$start_arg_run_unattended_parameter" -eq 0 ]
     then
         read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
         if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];

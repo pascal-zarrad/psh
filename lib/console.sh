@@ -9,34 +9,58 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-# Print a message
-# This function is allows something in the future like a clean log file
-# with only relevant log messages from the script to be created.
+# Colors used during script execution
+readonly COLOR_RESET="\e[0m"
+readonly COLOR_RED="\e[31m"
+readonly COLOR_GREEN="\e[32m"
+readonly COLOR_CYAN="\e[36m"
+readonly COLOR_YELLOW="\e[33m"
+
+# Prefixes
+readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
+readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
+readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
+
+# Print a message to the console
+#
+# @param $1 The message to print
 function print_message() {
-    echo -e "$1"
+    local message="${1}"
+    echo -e "${message}"
 }
 
-# Print an error message
+# Print a error message to the console
+#
+# @param $1 The message to print
 function print_error() {
-    echo -e "${ERROR_PREFIX} $1"
+    local message="${1}"
+    print_message "${ERROR_PREFIX} ${1}"
 }
 
-# Print a warning message
+# Print a warning message to the console
+#
+# @param $1 The message to print
 function print_warning() {
-    echo -e "${WARNING_PREFIX} $1"
+    local message="${1}"
+    print_message "${WARNING_PREFIX} ${1}"
 }
 
-# Print a success message
+# Print a success message to the console
+#
+# @param $1 The message to print
 function print_success() {
-    echo -e "${SUCCESS_PREFIX} $1"
+    local message="${1}"
+    print_message "${SUCCESS_PREFIX} ${1}"
 }
 
 # A yes/no dialog that can be used for user approvements during installation
+#
+# @param $1 The message that is displayed on prompt
+# @param $2 The state if the prompt is required or not (--unattended) start parameter
 function yes_no_abort_dialog() {
-    # start_arg_run_unattended is set in ../install.sh
-    # shellcheck disable=SC2154
+    local display_message="${1}"
+    local start_arg_run_unattended="${2}"
     if [ "$start_arg_run_unattended" -eq 0 ]; then
-        local display_message="$1"
         read -r -p "$display_message" confirm
         if [ "$confirm" != "y" ] && [ "$confirm" != "yes" ];
             then
