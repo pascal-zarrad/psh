@@ -23,7 +23,7 @@ readonly DEPENDENCIES=(
 source "lib/console.sh"
 
 # Function to print usage of install.sh
-cmd_help() {
+show_param_help() {
     print_message "Usage of install.sh:"
     print_message "install.sh [--disable-templates] [--help]"
     print_message ""
@@ -54,10 +54,10 @@ do
             start_arg_run_unattended_parameter=1
             ;;
         --help)
-            cmd_help
+            show_param_help
             ;;
         *)
-            cmd_help
+            show_param_help
             ;;
     esac
     shift
@@ -95,8 +95,7 @@ done
 sudo_installed="1"
 # Check if sudo is installed
 print_message ""
-dpgk_sudo_check_result=$(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed")
-if [ "$dpgk_sudo_check_result" -eq 0 ]
+if [ "$(packages_installed "sudo")" = "sudo" ]
     then
         sudo_installed="0"
         print_message "sudo is ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
@@ -109,7 +108,6 @@ print_message ""
 package_install_command=""
 for package in "${not_installed[@]}"
 do
-    echo "$package"
     package_install_command+="${package} "
 done
 
@@ -122,7 +120,6 @@ if [ -n "${package_install_command// }" ]
                     then
                         install_apt_packages $sudo_installed  $start_arg_run_unattended_parameter "$package_install_command"
                     else
-                        print_message ""
                         print_message ""
                         print_error "Sudo is not installed and you're not root."
                         print_error "All missing dependencies have to be installed manually using apt."
