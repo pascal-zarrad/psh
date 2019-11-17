@@ -13,10 +13,5 @@
 # and use sudo if possible (else expect to run as root
 # or throw an error)
 run_psh_installation() {
-
+    echo "Empty"
 }
-
-# TODO:
-# - Abstract installation into functions and allow installation on other users
-# - Remove "Magic". Pass constants and variables to functions of sourced scripts
-#   as childs functions should not be dependent on their parent.

@@ -123,13 +123,13 @@ do
 done
 
 # Handle package installation based on environment
-if [ ! -z "${package_install_command// }" ]
+if [ -n "${package_install_command// }" ]
     then
         if [ "${sudo_installed}" = "0" ];
             then
                 if [ "$(id -u)" -eq "0" ]
                     then
-                        install_apt_packages $sudo_installed "$package_install_command"
+                        install_apt_packages $sudo_installed  $start_arg_run_unattended_parameter "$package_install_command"
                     else
                         print_message ""
                         print_message ""
@@ -140,7 +140,7 @@ if [ ! -z "${package_install_command// }" ]
                         exit 1
                 fi
             else
-                install_apt_packages $sudo_installed "$package_install_command"
+                install_apt_packages $sudo_installed $start_arg_run_unattended_parameter "$package_install_command"
         fi
 fi
 

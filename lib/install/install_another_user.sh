@@ -11,5 +11,5 @@
 
 # Run the psh installation for the current user
 run_psh_installation() {
-
+    echo "Empty"
 }
