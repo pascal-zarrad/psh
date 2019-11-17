@@ -19,6 +19,9 @@ readonly DEPENDENCIES=(
     "xclip"
 )
 
+# Load functions for console read/write
+source "lib/console.sh"
+
 # Function to print usage of install.sh
 cmd_help() {
     print_message "Usage of install.sh:"
@@ -59,9 +62,6 @@ do
     esac
     shift
 done
-
-# Load functions for console read/write
-source "lib/console.sh"
 
 # Print initial
 print_message "This install script will install zsh and configure it automatically for you."
