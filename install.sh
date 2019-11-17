@@ -93,7 +93,7 @@ print_message "Checking dependencies..."
 not_installed=("$(packages_installed "${DEPENDENCIES[@]}")")
 for dependency in "${DEPENDENCIES[@]}"
 do
-    if [[ " ${not_installed[*]} " =~ " ${dependency} " ]]
+    if [[ " ${not_installed[*]} " == *" ${dependency} "* ]]
         then
             print_message "$dependency: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
         else
