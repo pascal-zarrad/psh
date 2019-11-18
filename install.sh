@@ -76,8 +76,8 @@ done
 # Print initial
 print_message "This install script will install zsh and configure it automatically for you."
 print_message "If you accept all steps of the installation, zsh will be pre-confiured to provide a great experience out of the box."
-print_message "The installer will check the dependencies and will inform you about required actions.
-If you have sudo installed, the installer will automatically try to install the dependencies. after your approval."
+print_message "The installer will check the dependencies and will inform you about required actions."
+print_message "If you have sudo installed, the installer will automatically try to install the dependencies, after your approval."
 
 # Ask user if he wants to start installation
 # Ask the user if he really wants to install the cron
