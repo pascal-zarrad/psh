@@ -25,13 +25,16 @@ source "lib/console.sh"
 # Function to print usage of install.sh
 show_param_help() {
     print_message "Usage of install.sh:"
-    print_message "install.sh [--disable-templates] [--help]"
+    print_message "install.sh [USER] [--arg]"
     print_message ""
     print_message "--help                - Prints this help page"
     print_message "--disable-templates   - Disables inclusion of templates"
     print_message "--disable-plugins     - Disable plugin execution"
     print_message "--unattended          - Run without user interaction (except password prompts)"
     print_message ""
+    print_message "You can place the user parameter anywhere. The first parameter without"
+    print_message "a dash is being used as the target user. All other arguments without"
+    print_message "leading dashes are being ignored."
     exit
 }
 
@@ -39,6 +42,7 @@ show_param_help() {
 start_arg_disable_template_engine=0
 start_arg_disable_plugin_system=0
 start_arg_run_unattended_parameter=0
+start_arg_install_for_user_parameter=$(whoami)
 # Process arguments/start parameters
 # and set values to use
 while test $# != 0
@@ -56,8 +60,14 @@ do
         --help)
             show_param_help
             ;;
-        *)
+        -*)
             show_param_help
+            ;;
+        *)
+            if [ "$start_arg_install_for_user_parameter" = "$(whoami)" ];
+                then
+                    start_arg_install_for_user_parameter="$1"
+            fi
             ;;
     esac
     shift
