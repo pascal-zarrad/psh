@@ -35,6 +35,7 @@ show_param_help() {
     print_message "You can place the user parameter anywhere. The first parameter without"
     print_message "a dash is being used as the target user. All other arguments without"
     print_message "leading dashes are being ignored."
+    print_message "Note that installing psh for another user requires root privileges!"
     exit
 }
 
@@ -66,12 +67,22 @@ do
         *)
             if [ "$start_arg_install_for_user_parameter" = "$(whoami)" ];
                 then
-                    start_arg_install_for_user_parameter="$1"
+                    if [ "$(id -u)" -eq "0" ]
+                        then
+                            start_arg_install_for_user_parameter="$1"
+                        else
+                            print_error "Run the install script as root to install psh for another user!"
+                            exit 1
+                    fi
             fi
             ;;
     esac
     shift
 done
+
+# Construct the target home directory of the user which will receive psh
+readonly CUSTOM_USER_HOME_DIR="$(echo ~$tart_arg_install_for_user_parameter)"
+echo "$CUSTOM_USER_HOME_DIR"
 
 # Print initial
 print_message "This install script will install zsh and configure it automatically for you."
