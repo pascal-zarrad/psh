@@ -21,6 +21,8 @@ readonly DEPENDENCIES=(
 
 # Load functions for console read/write
 source "lib/console.sh"
+# Load functions to manage user specific stuff
+source "lib/user_management.sh"
 
 # Function to print usage of install.sh
 show_param_help() {
@@ -81,8 +83,13 @@ do
 done
 
 # Construct the target home directory of the user which will receive psh
-readonly CUSTOM_USER_HOME_DIR="$(echo ~$tart_arg_install_for_user_parameter)"
-echo "$CUSTOM_USER_HOME_DIR"
+if check_user_exists "$start_arg_install_for_user_parameter"
+    then
+        readonly CUSTOM_USER_HOME_DIR="$(get_user_home "$start_arg_install_for_user_parameter")"
+    else
+        print_error "The targeted user does not exist!"
+        exit 1
+fi
 
 # Print initial
 print_message "This install script will install zsh and configure it automatically for you."
