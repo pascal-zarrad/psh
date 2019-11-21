@@ -61,16 +61,22 @@ done
 print_success "Completed template search!"
 
 # Include templates into the new .zshrc
+#
+# @param $1 The type of the templates to include
+# @param $2 Status if the template engine has been disabled
+# @param $3 The location of the home directory of the specified user
 function include_templates() {
+    local template_type="$1"
+    local start_arg_disable_template_engine="$2"
+    local user_home="$3"
     # $start_arg_disable_template_engine is set on install.sh
     # shellcheck disable=SC2154
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
         return
     fi
-    local templateType="$1"
-    echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
+    echo "# User defined templates: $template_type" >> "${user_home}/.zshrc"
     local currentTemplateFiles=()
-    case $templateType in
+    case $template_type in
             "$TEMPLATE_START")
                 currentTemplateFiles=("${templates_start[@]}")
                 ;;
@@ -91,7 +97,7 @@ function include_templates() {
     do
         local currentTemplateFile="templates/${templateFile}"
         echo "Applying template file ${templateFile}"
-        if tail -n +2 "$currentTemplateFile" >> "${HOME}/.zshrc"
+        if tail -n +2 "$currentTemplateFile" >> "${user_home}/.zshrc"
             then
                 print_success "Applied template file ${currentTemplateFile}!"
             else
@@ -102,9 +108,10 @@ function include_templates() {
 }
 
 # Print warnings about template files that do not contain the #TEMPLATE=[TYPE]] header
+#
+# @param $1 Status if the template engine has been disabled
 function print_template_warnings() {
-    # $start_arg_disable_template_engine is set on install.sh
-    # shellcheck disable=SC2154
+    local start_arg_disable_template_engine="$1"
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
         return
     fi

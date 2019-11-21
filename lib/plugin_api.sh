@@ -15,7 +15,7 @@
 # @param $1 The line of content to write to the .zshrc
 function write_zshrc() {
     content="$1"
-    echo "$content" >> "${HOME}/.zshrc"
+    echo "$content" >> "${CUSTOM_USER_HOME_DIR}/.zshrc"
 }
 
 # Function that checks if antigen bundle is loaded or not
@@ -24,7 +24,7 @@ function write_zshrc() {
 # @param $1 The bundle to add to the .zshrc
 function apply_antigen_bundle() {
     antigen_bundle="$1"
-    if ! grep -q "$antigen_bundle" "${HOME}/.zshrc" ; then
+    if ! grep -q "$antigen_bundle" "${CUSTOM_USER_HOME_DIR}/.zshrc" ; then
         write_zshrc "antigen bundle ${antigen_bundle}"
     fi
 }
@@ -35,7 +35,7 @@ function apply_antigen_bundle() {
 # @param $1 The name if the theme that should be added to the zshrc
 function apply_antigen_theme() {
     antigen_theme="$1"
-    if ! grep -q "antigen theme" "${HOME}/.zshrc" ; then
+    if ! grep -q "antigen theme" "${CUSTOM_USER_HOME_DIR}/.zshrc" ; then
         write_zshrc "antigen theme ${antigen_theme}"
     fi
 }
