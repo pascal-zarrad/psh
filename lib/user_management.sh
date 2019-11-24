@@ -32,3 +32,18 @@ function get_user_home() {
     result="$(getent passwd "$targetUser" | cut -d: -f6)"
     echo "$result"
 }
+
+# Set the owner of a specified file/folder to the specified user.
+# The fucntion does not check if the user running this script has permissions
+# to change a file's owner. This should be done before calling this function.
+#
+# @param $1 The user that will later on own the specified file
+# @param $2 The file to fix
+function fix_user_permissions() {
+    local user="$1"
+    local file="$2"
+    # Only fix permission if user isn't already owner of file
+    if [ "$(stat --format '%U' $file)" != "$user" ]; then
+        chown -R "$user":"$(id -gn $user)" "$file"
+    fi
+}

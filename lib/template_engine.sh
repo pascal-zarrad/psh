@@ -68,13 +68,13 @@ print_success "Completed template search!"
 function include_templates() {
     local template_type="$1"
     local start_arg_disable_template_engine="$2"
-    local user_home="$3"
+    local zshrc_path="$3"
     # $start_arg_disable_template_engine is set on install.sh
     # shellcheck disable=SC2154
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
         return
     fi
-    echo "# User defined templates: $template_type" >> "${user_home}/.zshrc"
+    echo "# User defined templates: $template_type" >> "${zshrc_path}"
     local currentTemplateFiles=()
     case $template_type in
             "$TEMPLATE_START")
@@ -97,7 +97,7 @@ function include_templates() {
     do
         local currentTemplateFile="templates/${templateFile}"
         echo "Applying template file ${templateFile}"
-        if tail -n +2 "$currentTemplateFile" >> "${user_home}/.zshrc"
+        if tail -n +2 "$currentTemplateFile" >> "${zshrc_path}"
             then
                 print_success "Applied template file ${currentTemplateFile}!"
             else
