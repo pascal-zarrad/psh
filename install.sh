@@ -9,9 +9,9 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-# ---- START: Constants used by PSH
-# All constants that not belong to plugins should be listed below and not
-# in sourced scripts, to have a central overview of them.
+# Semantic versioning version constant
+readonly PSH_VERSION="1.0.0"
+echo "PSH - VERSION: ${PSH_VERSION}"
 
 # Dependencies that need to be installed with root privileges trhough apt-get
 readonly DEPENDENCIES=(
@@ -23,166 +23,118 @@ readonly DEPENDENCIES=(
     "xclip"
 )
 
-# Template directive constant
-readonly TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
-# Different template insertion points
-readonly TEMPLATE_START="START"
-readonly TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH="BETWEEN_ANTIGEN_AND_OH_MY_ZSH"
-readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
-readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
-readonly TEMPLATE_END="END"
-
-# Colors used during script execution
-readonly COLOR_RESET="\e[0m"
-readonly COLOR_RED="\e[31m"
-readonly COLOR_GREEN="\e[32m"
-readonly COLOR_CYAN="\e[36m"
-readonly COLOR_YELLOW="\e[33m"
-
-# Prefixes
-readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
-readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
-readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
-# ---- END: Constants used by PSH
+# Load functions for console read/write
+source "lib/console.sh"
+# Load functions to manage user specific stuff
+source "lib/user_management.sh"
 
 # Function to print usage of install.sh
-cmd_help() {
-    echo "Usage of install.sh:"
-    echo "install.sh [--disable-templates] [--help]"
-    echo ""
-    echo "--help                - Prints this help page"
-    echo "--disable-templates   - Disables inclusion of templates"
-    echo "--disable-plugins     - Disable plugin execution"
-    echo "--unattended          - Run without user interaction (except password prompts)"
-    echo ""
+show_param_help() {
+    print_message "Usage of install.sh:"
+    print_message "install.sh [USER] [--arg]"
+    print_message ""
+    print_message "--help                - Prints this help page"
+    print_message "--disable-templates   - Disables inclusion of templates"
+    print_message "--disable-plugins     - Disable plugin execution"
+    print_message "--unattended          - Run without user interaction (except password prompts)"
+    print_message ""
+    print_message "You can place the user parameter anywhere. The first parameter without"
+    print_message "a dash is being used as the target user. All other arguments without"
+    print_message "leading dashes are being ignored."
+    print_message "Note that installing psh for another user requires root privileges!"
     exit
 }
 
 # Variables (flags) that are set by the start parameters
-start_arg_disable_template_engine=0
-start_arg_disable_plugin_system=0
-start_arg_run_unattended=0
+start_arg_disable_template_engine_parameter=0
+start_arg_disable_plugin_system_parameter=0
+start_arg_run_unattended_parameter=0
+start_arg_install_for_user_parameter=$(whoami)
 # Process arguments/start parameters
 # and set values to use
 while test $# != 0
 do
     case "$1" in
         --disable-templates)
-            start_arg_disable_template_engine=1
+            start_arg_disable_template_engine_parameter=1
             ;;
         --disable-plugins)
-            start_arg_disable_plugin_system=1
+            start_arg_disable_plugin_system_parameter=1
             ;;
         --unattended)
-            start_arg_run_unattended=1
+            start_arg_run_unattended_parameter=1
             ;;
         --help)
-            cmd_help
+            show_param_help
+            ;;
+        -*)
+            show_param_help
             ;;
         *)
-            cmd_help
+            if [ "$start_arg_install_for_user_parameter" = "$(whoami)" ];
+                then
+                    if [ "$(id -u)" -eq "0" ]
+                        then
+                            start_arg_install_for_user_parameter="$1"
+                        else
+                            print_error "Run the install script as root to install psh for another user!"
+                            exit 1
+                    fi
+            fi
             ;;
     esac
     shift
 done
 
-# Print an error message
-print_error() {
-    echo -e "${ERROR_PREFIX} $1"
-}
-
-# Print a warning message
-print_warning() {
-    echo -e "${WARNING_PREFIX} $1"
-}
-
-# Print a success message
-print_success() {
-    echo -e "${SUCCESS_PREFIX} $1"
-}
-
-# A yes/no dialog that can be used for user approvements during installation
-yes_no_abort_dialog() {
-    if [ "$start_arg_run_unattended" -eq 0 ]; then
-        local display_message="$1"
-        read -r -p "$display_message" confirm
-        if [ "$confirm" != "y" ] && [ "$confirm" != "yes" ];
-            then
-                print_error "Installation aborted..."
-                exit 1
-        fi
-    fi
-}
+# Construct the target home directory of the user which will receive psh
+if check_user_exists "$start_arg_install_for_user_parameter"
+    then
+        readonly CUSTOM_USER_HOME_DIR="$(get_user_home "$start_arg_install_for_user_parameter")"
+    else
+        print_error "The targeted user does not exist!"
+        exit 1
+fi
 
 # Print initial
-echo "This install script will install zsh and configure it automatically for you."
-echo "If you accept all steps of the installation, zsh will be pre-confiured to provide a great experience out of the box."
-echo "The installer will check the dependencies and will inform you about required actions.
-If you have sudo installed, the installer will automatically try to install the dependencies. after your approval."
+print_message "This install script will install zsh and configure it automatically for the user ${start_arg_install_for_user_parameter}."
+print_message "If you accept all steps of the installation, zsh will be pre-confiured to provide a great experience out of the box."
+print_message "The installer will check the dependencies and will inform you about required actions."
+print_message "If you have sudo installed, the installer will automatically try to install the dependencies, after your approval."
 
 # Ask user if he wants to start installation
 # Ask the user if he really wants to install the cron
-echo ""
-yes_no_abort_dialog "Do you want to install psh? (y/n): "
+print_message ""
+yes_no_abort_dialog "Do you want to install psh for ${start_arg_install_for_user_parameter}? (y/n): " "${start_arg_run_unattended_parameter}"
 
-# Check which dependencies are installed and which not
-not_installed=()
-packages_installed() {
-    local package="$1"
-    dpgk_install_check_result=$(dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -c "ok installed")
-    if [ "$dpgk_install_check_result" -eq 0 ]
-        then
-            echo -e "$package: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
-            not_installed=("${not_installed[@]}" "${package}")
-        else
-            echo -e "$package: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
-    fi
-}
-
-# Install dependencies. Use sudo if available.
-install_apt_packages() {
-    local use_sudo="$1"
-    local package_install_command="$2"
-    IFS=' ' read -r -a package_install_arguments <<< "$package_install_command"
-    echo "The installer has to install the following packages through apt (using sudo if available): "
-    echo "During package installation, an apt update & upgrade are done automatically!"
-    echo -e "${COLOR_CYAN}${package_install_command}${COLOR_RESET}"
-    yes_no_abort_dialog "Do you want to continue? (y/n): "
-    echo "${package_install_arguments[@]}"
-    if [ "$use_sudo" -eq 1 ]
-        then
-            sudo apt-get update && sudo apt-get install -y "${package_install_arguments[@]}"
-        else
-            apt-get update && apt-get install -y "${package_install_arguments[@]}"
-    fi
-    install_result="$?"
-    if [ "$install_result" -ne 0 ]; then
-        print_error "An error occured during installation of dependencies."
-        print_error "Please take a look at the problem and revolve the problem manually!"
-        exit 1
-    fi
-}
+# We currently only support debian based systems, so just source package management functions
+# using apt.
+source "lib/distdep/deb_based/package_management.sh"
 
 # Analyse which dependencies are already installed
-echo ""
-echo "Checking dependencies..."
+print_message ""
+print_message "Checking dependencies..."
+not_installed=("$(packages_installed "${DEPENDENCIES[@]}")")
 for dependency in "${DEPENDENCIES[@]}"
 do
-    packages_installed "$dependency"
+    if [[ " ${not_installed[*]} " == *" ${dependency} "* ]]
+        then
+            print_message "$dependency: ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
+        else
+            print_message "$dependency: ${COLOR_GREEN}INSTALLED${COLOR_RESET}"
+    fi
 done
 
 sudo_installed="1"
 # Check if sudo is installed
-echo ""
-dpgk_sudo_check_result=$(dpkg-query -W -f='${Status}' sudo 2>/dev/null | grep -c "ok installed")
-if [ "$dpgk_sudo_check_result" -eq 0 ]
+print_message ""
+if [ "$(packages_installed "sudo")" = "sudo" ]
     then
         sudo_installed="0"
-        echo -e "sudo is ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
+        print_message "sudo is ${COLOR_RED}NOT INSTALLED${COLOR_RESET}"
     else
-        echo -e "sudo is ${COLOR_GREEN}AVAILABLE${COLOR_RESET}"
+        print_message "sudo is ${COLOR_GREEN}AVAILABLE${COLOR_RESET}"
 fi
-echo ""
+print_message ""
 
 # built string containing all package that need to be installed.
 package_install_command=""
@@ -192,16 +144,15 @@ do
 done
 
 # Handle package installation based on environment
-if [ "${#not_installed[@]}" -ne 0 ]
+if [ -n "${package_install_command// }" ]
     then
         if [ "${sudo_installed}" = "0" ];
             then
                 if [ "$(id -u)" -eq "0" ]
                     then
-                        install_apt_packages $sudo_installed "$package_install_command"
+                        install_apt_packages $sudo_installed  $start_arg_run_unattended_parameter "$package_install_command"
                     else
-                        echo ""
-                        echo ""
+                        print_message ""
                         print_error "Sudo is not installed and you're not root."
                         print_error "All missing dependencies have to be installed manually using apt."
                         print_error "We generated the required apt command for you:"
@@ -209,60 +160,68 @@ if [ "${#not_installed[@]}" -ne 0 ]
                         exit 1
                 fi
             else
-                install_apt_packages $sudo_installed "$package_install_command"
+                install_apt_packages $sudo_installed $start_arg_run_unattended_parameter "$package_install_command"
         fi
 fi
 
 print_success "Installed all apt dependencies for psh!"
-echo ""
+print_message ""
 
 # Install antigen to ~/.antigen/antigen.sh
-echo ""
-echo "The basic installation of zsh is now done."
-echo "Now components required for customization will be installed."
-echo "Antigen is used for plugin management."
-echo "To enable this plugin manager, it will now be installed..."
-if [ -f "${HOME}/.antigen/antigen.zsh" ]
+print_message ""
+print_message "The basic installation of zsh is now done."
+print_message "Now components required for customization will be installed."
+print_message "Antigen is used for plugin management."
+print_message "To enable this plugin manager, it will now be installed..."
+readonly ANTIGEN_FOLDER_PATH="${CUSTOM_USER_HOME_DIR}/.antigen"
+readonly ANTIGEN_PATH="${ANTIGEN_FOLDER_PATH}/antigen.zsh"
+if [ -f "${ANTIGEN_PATH}" ]
     then
         print_success "Antigen is already installed."
     else
-        if ! [ -d "${HOME}/.antigen" ]; then
-            mkdir "${HOME}/.antigen"
+        if ! [ -d "${ANTIGEN_FOLDER_PATH}" ]; then
+            mkdir "${ANTIGEN_FOLDER_PATH}"
         fi
-        if curl -L git.io/antigen > "${HOME}/.antigen/antigen.zsh"
+        if curl -L git.io/antigen > "${ANTIGEN_PATH}"
             then
-                print_success "Successfully installed antigen to ${HOME}/.antigen/antigen.zsh"
+                print_success "Successfully installed antigen to ${ANTIGEN_PATH}"
             else
                 print_error "Failed to install antigen!"
                 exit 1
         fi
 fi
+fix_user_permissions "${start_arg_install_for_user_parameter}" "${ANTIGEN_FOLDER_PATH}"
 
 # Load plugin API
 source "lib/plugin_api.sh"
 
+# Specifiy .zshrc and .zshrc_unmodified paths
+readonly ZSHRC_PATH="${CUSTOM_USER_HOME_DIR}/.zshrc"
+readonly ZSHRC_UNMODIFIED_PATH="${CUSTOM_USER_HOME_DIR}/.zshrc_unmodified"
+
 # First of all backup .zshrc
-echo ""
-echo "Backing up ${HOME}/.zshrc to ${HOME}/.zshrc_unmodified..."
-if [ -f "${HOME}/.zshrc" ]
+print_message ""
+print_message "Backing up ${ZSHRC_PATH} to ${ZSHRC_UNMODIFIED_PATH}..."
+if [ -f "${ZSHRC_PATH}" ]
     then
-        if cp "${HOME}/.zshrc" "${HOME}/.zshrc_unmodified"
+        if cp "${ZSHRC_PATH}" "${ZSHRC_UNMODIFIED_PATH}"
             then
-                print_success "Backed up ${HOME}/.zshrc"
+                fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_UNMODIFIED_PATH}"
+                print_success "Backed up ${ZSHRC_PATH}"
             else
-                print_error "Failed to backup ${HOME}/.zshrc"
+                print_error "Failed to backup ${ZSHRC_PATH}"
         fi
     else
         print_warning "No .zshrc exists, nothing has been backed up!"
 fi
-echo ""
+print_message ""
 
-echo "Preparing ${HOME}/.zshrc..."
+print_message "Preparing ${ZSHRC_PATH}"
 
 # Load template engine
-echo ""
+print_message ""
 source "lib/template_engine.sh"
-echo ""
+print_message ""
 
 # Now reset ~/.zshrc, as we build our own only using antigen
 # to load things
@@ -270,45 +229,45 @@ echo ""
     echo "# This .zshrc has been generated by psh."
     echo "# https://github.com/pascal-zarrad/psh"
     echo "# ======================================"
-} > "${HOME}/.zshrc"
+} > "${ZSHRC_PATH}"
 
 # Include templates the the start of the file after the header
-include_templates $TEMPLATE_START
+include_templates "${TEMPLATE_START}" "${start_arg_disable_template_engine_parameter}" "${ZSHRC_PATH}"
 
 # Enable antigen
 {
     echo "# Enable antigen"
-    echo "source ${HOME}/.antigen/antigen.zsh"
-} >> "${HOME}/.zshrc"
+    echo "source ${ANTIGEN_PATH}"
+} >> "${ZSHRC_PATH}"
 
 # Include templates after antigen has been loaded but before oh-my-zsh is being loaded
-include_templates "$TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH"
+include_templates "${TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH}" "${start_arg_disable_template_engine_parameter}" "${ZSHRC_PATH}"
 
 # Load oh-my-zsh library
 {
     echo "# Load oh-my-zsh library"
     echo "antigen use oh-my-zsh"
-} >> "${HOME}/.zshrc"
+} >> "${ZSHRC_PATH}"
 
 # Include templates between oh-my-zsh and the plugin execution
-include_templates "$TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS"
+include_templates "${TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS}" "${start_arg_disable_template_engine_parameter}" "${ZSHRC_PATH}"
 
-print_success "Prepared ${HOME}/.zshrc"
+print_success "Prepared ${ZSHRC_PATH}"
 
-if [ "$start_arg_disable_plugin_system" -ne 1 ]; then
+if [ "${start_arg_disable_plugin_system_parameter}" -ne 1 ]; then
 
     # Add comment which tells the user that here all automatically loaded
     # plugins are loaded
     {
         echo "# Load plugins and themes (generated by psh plugins during installation)"
-    } >> "${HOME}/.zshrc"
+    } >> "${ZSHRC_PATH}"
 
     # Applay all customizations
     # For a better overview, the customizations are done using
     # automatically loaded plugin files.
     # This keeps this script short.
-    echo ""
-    echo "Applying all customizations for zsh using plugins..."
+    print_message ""
+    print_message "Applying all customizations for zsh using plugins..."
     plugins=()
     while IFS='' read -r line; do plugins+=("$line"); done < <(ls -1 plugins)
     for plugin in "${plugins[@]}"
@@ -316,8 +275,8 @@ if [ "$start_arg_disable_plugin_system" -ne 1 ]; then
         pluginFile="plugins/${plugin}/plugin.sh"
         if [ -f "$pluginFile" ]
             then
-                echo ""
-                echo "Running plugin: ${plugin}"
+                print_message ""
+                print_message "Running plugin: ${plugin}"
                 # shellcheck source=/dev/null
                 if source "$pluginFile"
                     then
@@ -329,30 +288,37 @@ if [ "$start_arg_disable_plugin_system" -ne 1 ]; then
                 print_warning "Plugin ${plugin} has no plugin.sh, skipping!"
         fi
     done
-    echo ""
+    print_message ""
     print_success "Plugin execution done."
-    echo ""
+    print_message ""
 fi
 
 # Include templates after plugins being loaded but before antigen settings are applied
-include_templates "$TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
+include_templates "${TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY}" "${start_arg_disable_template_engine_parameter}" "${ZSHRC_PATH}"
 
 {
     # Now finish by telling antigen to apply the bundles and themes
     # Now load oh-my-zsh library
     echo "# Apply everything"
     echo "antigen apply"
-} >> "${HOME}/.zshrc"
+} >> "${ZSHRC_PATH}"
 
 # Include templates at the end of the .zshrc
-include_templates "$TEMPLATE_END"
+include_templates "${TEMPLATE_END}" "${start_arg_disable_template_engine_parameter}" "${ZSHRC_PATH}"
 
 # Print warnings for templates without the template directive
-print_template_warnings
+print_template_warnings "${start_arg_disable_template_engine_parameter}"
 
-change_shell_to_zsh() {
-    zsh_path=$(command -v zsh)
-    if chsh -s "${zsh_path}"
+# Fix .zshrc permissions
+fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_PATH}"
+
+# Trigger shell chage (chsh) to zsh of a specific user
+#
+# @param $1 The user of which the shell will be changed
+function change_shell_to_zsh() {
+    local user="$1"
+    local zsh_path;zsh_path=$(command -v zsh)
+    if chsh  "${user}" -s "${zsh_path}"
         then
             print_success "zsh has been set as your default login shell!"
             print_success "From now zsh will be loaded after login."
@@ -363,23 +329,23 @@ fi
 }
 
 # Ask user if he wants to set zsh as default shell
-echo ""
-echo ""
-echo "zsh has been installed and is configured!"
-echo "It is currently not configured as your default shell."
-echo -e "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
-if [ "$start_arg_run_unattended" -eq 0 ]
+print_message ""
+print_message ""
+print_message "zsh has been installed and is configured!"
+print_message "It is currently not configured as your default shell."
+print_message "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
+if [ "${start_arg_run_unattended_parameter}" -eq 0 ]
     then
         read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
-        if [ "$confirmDefaultShell" = "y" ] || [ "$confirmDefaultShell" = "yes" ];
+        if [ "${confirmDefaultShell}" = "y" ] || [ "${confirmDefaultShell}" = "yes" ];
             then
-               change_shell_to_zsh
+               change_shell_to_zsh "${start_arg_install_for_user_parameter}"
         fi
     else
-        change_shell_to_zsh
+        change_shell_to_zsh "${start_arg_install_for_user_parameter}"
 fi
 
 # The installation was successful
-echo ""
+print_message ""
 print_success "Installation completed successfully!"
 print_success "Restart your terminal or re-login to activate zsh!"

@@ -8,6 +8,15 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
+# Template directive constant
+readonly TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
+# Different template insertion points
+readonly TEMPLATE_START="START"
+readonly TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH="BETWEEN_ANTIGEN_AND_OH_MY_ZSH"
+readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
+readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
+readonly TEMPLATE_END="END"
+
 # Store the paths of our different template types in the arrays
 # to reduce I/O operations in comparison to v1 of the engine.
 templates_start=()
@@ -52,16 +61,22 @@ done
 print_success "Completed template search!"
 
 # Include templates into the new .zshrc
-include_templates() {
+#
+# @param $1 The type of the templates to include
+# @param $2 Status if the template engine has been disabled
+# @param $3 The location of the home directory of the specified user
+function include_templates() {
+    local template_type="$1"
+    local start_arg_disable_template_engine="$2"
+    local zshrc_path="$3"
     # $start_arg_disable_template_engine is set on install.sh
     # shellcheck disable=SC2154
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
         return
     fi
-    local templateType="$1"
-    echo "# User defined templates: $templateType" >> "${HOME}/.zshrc"
+    echo "# User defined templates: $template_type" >> "${zshrc_path}"
     local currentTemplateFiles=()
-    case $templateType in
+    case $template_type in
             "$TEMPLATE_START")
                 currentTemplateFiles=("${templates_start[@]}")
                 ;;
@@ -82,7 +97,7 @@ include_templates() {
     do
         local currentTemplateFile="templates/${templateFile}"
         echo "Applying template file ${templateFile}"
-        if tail -n +2 "$currentTemplateFile" >> "${HOME}/.zshrc"
+        if tail -n +2 "$currentTemplateFile" >> "${zshrc_path}"
             then
                 print_success "Applied template file ${currentTemplateFile}!"
             else
@@ -93,9 +108,10 @@ include_templates() {
 }
 
 # Print warnings about template files that do not contain the #TEMPLATE=[TYPE]] header
-print_template_warnings() {
-    # $start_arg_disable_template_engine is set on install.sh
-    # shellcheck disable=SC2154
+#
+# @param $1 Status if the template engine has been disabled
+function print_template_warnings() {
+    local start_arg_disable_template_engine="$1"
     if [ "$start_arg_disable_template_engine" -eq 1 ]; then
         return
     fi
