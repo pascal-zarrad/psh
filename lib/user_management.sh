@@ -43,7 +43,7 @@ function fix_user_permissions() {
     local user="$1"
     local file="$2"
     # Only fix permission if user isn't already owner of file
-    if [ "$(stat --format '%U' $file)" != "$user" ]; then
-        chown -R "$user":"$(id -gn $user)" "$file"
+    if [ "$(stat --format '%U' "$file")" != "$user" ]; then
+        chown -R "$user":"$(id -gn "$user")" "$file"
     fi
 }

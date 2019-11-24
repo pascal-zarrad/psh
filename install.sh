@@ -317,7 +317,7 @@ fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_PATH}"
 # @param $1 The user of which the shell will be changed
 function change_shell_to_zsh() {
     local user="$1"
-    local zsh_path=$(command -v zsh)
+    local zsh_path;zsh_path=$(command -v zsh)
     if chsh  "${user}" -s "${zsh_path}"
         then
             print_success "zsh has been set as your default login shell!"
