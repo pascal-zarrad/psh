@@ -51,4 +51,4 @@ To check code quality run: ```shellcheck **/*.sh```
 You are welcome to contribute to psh if you have improvements or bug fixes.
 You are also welcome to suggest own plugins that should be added to the default
 psh installation. Refer to [Contributing](https://github.com/pascal-zarrad/psh/blob/master/CONTRIBUTING.md)
-if you want to get a contributor or simply create an issue.
+if you want to be a contributor or simply create an issue.
