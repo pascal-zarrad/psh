@@ -13,7 +13,7 @@
 readonly PSH_VERSION="1.0.0"
 echo "PSH - VERSION: ${PSH_VERSION}"
 
-# Dependencies that need to be installed with root privileges trhough apt-get
+# Dependencies that need to be installed with root privileges through apt-get
 readonly DEPENDENCIES=(
     "zsh"
     "fonts-powerline"
