@@ -1,5 +1,7 @@
 language: shell
-sudo: false
+os: [
+    "linux"
+]
 script:
  - bash -c 'shopt -s globstar nullglob; shellcheck **/*.sh'
 matrix:
