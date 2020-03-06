@@ -13,6 +13,6 @@
 # the password, so we add a environment variable to fix that.
 if grep -q "Microsoft" "/proc/version" || grep -q ".*microsoft-standard*." "/proc/version"
     then
-        write_zshrc "export GPG_TTY=$(tty)"
+        write_zshrc "export GPG_TTY=\$(tty)"
         echo "Applied wsl-gpg fix to support gpg on wsl!"
 fi
