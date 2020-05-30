@@ -1,25 +1,11 @@
 ### Description
 What does your PR solve? If new features where added by your PR, what are the features?
 
-### Issue
-This PR addresses the following issues:
- - pascal-zarrad/psh #XX | The issue title 
+### Issue relations
+To which issue(s) is your PR related? Use keywords (for example "Closes #1") to link your issues properly.
 
 ### Test Scenarios
-What is the expected behavior that is expected by the changes of the PR?
- - The new plugin x/y should be installed
- - The bug should be no longer reproducible
- - The installer does now x/y...
+Describe how reviewers can verify that your changes do work from a functional perspective.
 
 ### Additional information
 Add here additional information if applicable or remove this section.
-
-#### Checklist
-Use the following checklist to ensure your PR meets all contribution requirements.
- - [ ] A meaningful title is set.
- - [ ] A description is available and contains all relevant information.
- - [ ] All issues solved by this PR are referenced under the appropriate section.
- - [ ] Test scenarios that tell the tester the expected behavior are present (does not apply for documentation changes an so on).
- - [ ] The labels that apply have been set. 
-
-**Please remove the entire checklist section before submitting your pull request, as it is only to help contributors**
