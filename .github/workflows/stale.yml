@@ -21,3 +21,4 @@ jobs:
         exempt-pr-labels: 'in progress'
         days-before-stale: 60
         days-before-close: 7
+

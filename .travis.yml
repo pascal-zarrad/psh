@@ -1,8 +1,0 @@
-language: shell
-os: [
-    "linux"
-]
-script:
- - bash -c 'shopt -s globstar nullglob; shellcheck **/*.sh'
-matrix:
-  fast_finish: true

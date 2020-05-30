@@ -9,13 +9,13 @@
 #==================================================================
 
 # Template directive constant
-readonly TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
+export readonly TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
 # Different template insertion points
-readonly TEMPLATE_START="START"
-readonly TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH="BETWEEN_ANTIGEN_AND_OH_MY_ZSH"
-readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
-readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
-readonly TEMPLATE_END="END"
+export readonly TEMPLATE_START="START"
+export readonly TEMPLATE_BETWEEN_ANTIGEN_AND_OH_MY_ZSH="BETWEEN_ANTIGEN_AND_OH_MY_ZSH"
+export readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
+export readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY="AFTER_PLUGINS_BEFORE_ANTIGEN_APPLY"
+export readonly TEMPLATE_END="END"
 
 # Store the paths of our different template types in the arrays
 # to reduce I/O operations in comparison to v1 of the engine.

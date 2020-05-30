@@ -8,5 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: Install ShellCheck
+        run: |
+          sudo apt-get install shellcheck
       - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
+        run: |
+          bash -c 'shopt -s globstar nullglob; shellcheck **/*.sh'
+
