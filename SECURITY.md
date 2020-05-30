@@ -12,9 +12,9 @@ Legend: :white_check_mark: supported - :ballot_box_with_check: support on critic
 
 ## Reporting a Vulnerability
 
-If you find a security issue, we advice you to _not_ create a issue on GitHub for that as 
+If you find a security issue, we advise you to _not_ create an issue on GitHub for that as 
 it could put all systems using psh on risk. 
-Please send a e-mail to [P.Zarrad@outlook.de](mailto:P.Zarrad@outlook.de) to report such issues.
+Please send an e-mail to [P.Zarrad@outlook.de](mailto:P.Zarrad@outlook.de) to report such issues.
 
 We take security issues serious and will not create an GitHub issue for any critical security issue 
 until we have supplied a fix. All communication with the contributor of the issue will be held through e-mail
