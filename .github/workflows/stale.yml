@@ -1,14 +1,12 @@
-name: 'Close stale issues and pull requests'
+name: Close stale issues and pull requests
 
 on:
   schedule:
-  - cron: "0 0 * * *"
+  - cron: '0 0 * * *'
 
 jobs:
   stale:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/stale@v3.0.5
       with:
