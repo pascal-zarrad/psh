@@ -18,4 +18,4 @@ Please send an e-mail to [P.Zarrad@outlook.de](mailto:P.Zarrad@outlook.de) to re
 
 We take security issues serious and will not create an GitHub issue for any critical security issue 
 until we have supplied a fix. All communication with the contributor of the issue will be held through e-mail
-till we are at a state to release information about the issue publicly.
+unti we are at a point where we can release information about the issue publicly.
