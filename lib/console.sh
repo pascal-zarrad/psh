@@ -10,16 +10,16 @@
 #==================================================================
 
 # Colors used during script execution
-readonly COLOR_RESET="\e[0m"
-readonly COLOR_RED="\e[31m"
-readonly COLOR_GREEN="\e[32m"
-readonly COLOR_CYAN="\e[36m"
-readonly COLOR_YELLOW="\e[33m"
+export readonly COLOR_RESET="\e[0m"
+export readonly COLOR_RED="\e[31m"
+export readonly COLOR_GREEN="\e[32m"
+export readonly COLOR_CYAN="\e[36m"
+export  readonly COLOR_YELLOW="\e[33m"
 
 # Prefixes
-readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
-readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
-readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
+export readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
+export readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
+export readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
 
 # Print a message to the console
 #
