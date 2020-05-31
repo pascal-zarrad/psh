@@ -23,4 +23,4 @@ To get started, a great way is to pick a issue that is marked as good first issu
 ### The process of the creation of the issue
  - Create an issue and use the appropriate template
  - Provide as much information as you can
- - If you report a security issue, first visit our [security guidelines](SECURITY.md)
+ - If you report a security issue, first visit our [security guidelines](SECURITY.md).
