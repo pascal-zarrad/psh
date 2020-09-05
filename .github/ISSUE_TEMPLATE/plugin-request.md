@@ -2,7 +2,7 @@
 name: Plugin request
 about: Request a plugin that you wish to be added
 title: ''
-labels: 'C5 - plugin suggestion'
+labels: 'C6 - plugin suggestion'
 assignees: pascal-zarrad
 
 ---
