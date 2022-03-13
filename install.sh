@@ -26,7 +26,7 @@
 #==================================================================
 
 # Semantic versioning version constant
-readonly PSH_VERSION="1.0.2"
+readonly PSH_VERSION="1.1.0"
 echo "PSH - VERSION: ${PSH_VERSION}"
 
 # Dependencies that need to be installed with root privileges through apt-get
