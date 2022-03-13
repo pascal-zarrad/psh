@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-copydir-installer
-# Description	: Enables oh-my-zsh's copydir plugin
+# Script Name   : psh-copypath-installer
+# Description	: Enables oh-my-zsh's copypath plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "copydir"
+apply_antigen_bundle "copypath"
