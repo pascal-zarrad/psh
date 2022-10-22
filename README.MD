@@ -20,10 +20,15 @@ In theory all configuration done by psh should work on any system that is compat
 But as the installer uses ```apt```, you need any system that supports ```apt``` to use it.
 
 Currently psh is only tested in the following environments:
- * Ubuntu 18.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
- * Ubuntu 18.04 (Windows Subsystem for Linux 2)
- * Ubuntu 18.04
- * Debian 9
+ * Arch Linux
+ * Manjaro Linux
+ * Ubuntu 22.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
+ * Ubuntu 22.04 (Windows Subsystem for Linux 2)
+ * Ubuntu 22.04
+ * Ubuntu 20.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
+ * Ubuntu 20.04 (Windows Subsystem for Linux 2)
+ * Ubuntu 20.04
+ * Debian 11
 
 You can find further information in the wiki under [Compatibility](https://github.com/pascal-zarrad/psh/wiki/Compatibility).
 
