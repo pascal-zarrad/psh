@@ -32,6 +32,7 @@ echo "PSH - VERSION: ${PSH_VERSION}"
 # Dependencies that need to be installed with root privileges through apt-get
 readonly DEPENDENCIES=(
     "zsh"
+    "fonts-powerline"
     "git"
     "curl"
     "imagemagick"
@@ -121,33 +122,10 @@ print_message "If you have sudo installed, the installer will automatically try 
 print_message ""
 yes_no_abort_dialog "Do you want to install psh for ${start_arg_install_for_user_parameter}? (y/n): " "${start_arg_run_unattended_parameter}"
 
-if [ -f /etc/os-release ]; then
-    # shellcheck source=/dev/null
-    source /etc/os-release
-    detected_os=$NAME
-elif type lsb_release >/dev/null 2>&1; then
-    # shellcheck source=/dev/null
-    detected_os=$(lsb_release -si)
-elif [ -f /etc/lsb-release ]; then
-    # shellcheck source=/dev/null
-    source /etc/lsb-release
-    detected_os=$DISTRIB_ID
-elif [ -f /etc/debian_version ]; then
-    detected_os=Debian
-else
-    print_error "Could not detect a valid distribution!"
-    exit 1
-fi
+# We currently only support debian based systems, so just source package management functions
+# using apt.
 
-# Import the right package manager depending on current distribution
-if  [[ "$detected_os" = "Debian GNU/Linux" || "$detected_os" = "Ubuntu" ]]; then
-    source "lib/distdep/deb_based/package_management.sh"
-elif  [[ "$detected_os" = "Arch Linux" || "$detected_os" = "Manjaro Linux" ]]; then
-    source "lib/distdep/arch_based/package_management.sh"
-else
-    print_error "Your current distribution '$detected_os' is not supported!"
-    exit 1
-fi
+source "lib/distdep/package_management.sh"
 
 # Analyse which dependencies are already installed
 print_message ""
@@ -193,9 +171,9 @@ if [ -n "${package_install_command// }" ]
                     else
                         print_message ""
                         print_error "Sudo is not installed and you're not root."
-                        print_error "All missing dependencies have to be installed manually."
-                        print_error "We generated the package list for you:"
-                        print_error "${COLOR_CYAN}$package_install_command"
+                        print_error "All missing dependencies have to be installed manually using apt."
+                        print_error "We generated the required apt command for you:"
+                        print_error "${COLOR_CYAN}apt install $package_install_command"
                         exit 1
                 fi
             else
@@ -203,7 +181,7 @@ if [ -n "${package_install_command// }" ]
         fi
 fi
 
-print_success "Installed all system dependencies for psh!"
+print_success "Installed all apt dependencies for psh!"
 print_message ""
 
 # Install antigen to ~/.antigen/antigen.sh

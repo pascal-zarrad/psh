@@ -1,12 +1,9 @@
-# Created by .ignore support plugin (hsz.mobi)
-### JetBrains template
+### JetBrains
 
 .idea
 
-### VisualStudioCode template
+### VisualStudioCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
+### Apple
+.DS_Store
