@@ -104,7 +104,8 @@ done
 # Construct the target home directory of the user which will receive psh
 if check_user_exists "$start_arg_install_for_user_parameter"
     then
-        readonly CUSTOM_USER_HOME_DIR="$(get_user_home "$start_arg_install_for_user_parameter")"
+        CUSTOM_USER_HOME_DIR="$(get_user_home "$start_arg_install_for_user_parameter")"
+        readonly CUSTOM_USER_HOME_DIR
     else
         print_error "The targeted user does not exist!"
         exit 1
