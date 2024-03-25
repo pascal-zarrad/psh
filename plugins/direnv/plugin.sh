@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-ant-installer
-# Description	: Enables oh-my-zsh's ant plugin
+# Script Name   : psh-direnv-installer
+# Description	: Enables oh-my-zsh's direnv plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "ant"
+apply_antigen_bundle "direnv"

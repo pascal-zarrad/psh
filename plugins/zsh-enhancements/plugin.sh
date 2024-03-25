@@ -18,7 +18,7 @@
 
 #==================================================================
 # Script Names  : psh-zsh-enhancements-installer
-# Description	: Plugins that enhance the zsh experience.
+# Description	: Plugins that enhance the general shell experience
 # Args          : -
 # Author(s)     : Pascal Zarrad, Nico Just
 # Email         : P.Zarrad@outlook.de, nicojust@users.noreply.github.com

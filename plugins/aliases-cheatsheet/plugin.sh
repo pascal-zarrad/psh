@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-n98-magerun-installer
-# Description	: Enables oh-my-zsh's n98-magerun plugin
+# Script Name   : psh-aliases-cheatsheet-installer
+# Description	: Enables oh-my-zsh's aliases cheatsheet plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "n98-magerun"
+apply_antigen_bundle "aliases"

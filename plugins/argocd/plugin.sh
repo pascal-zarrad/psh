@@ -17,13 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-node-installer
-# Description	: Enables oh-my-zsh's node and npm plugin
+# Script Name   : psh-argocd-installer
+# Description	: Enables oh-my-zsh's argocd plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "node"
-apply_antigen_bundle "npm"
-apply_antigen_bundle "nvm"
+apply_antigen_bundle "argocd"

@@ -17,13 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-node-installer
-# Description	: Enables oh-my-zsh's node and npm plugin
+# Script Name   : psh-ansible-plugin-installer
+# Description	: Enables oh-my-zsh's ansible plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "node"
-apply_antigen_bundle "npm"
-apply_antigen_bundle "nvm"
+apply_antigen_bundle "ansible"

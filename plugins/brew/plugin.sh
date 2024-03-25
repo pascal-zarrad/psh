@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-symfony-installer
-# Description	: Enables oh-my-zsh's symfony plugin
+# Script Name   : psh-brew-installer
+# Description	: Enables oh-my-zsh's Homebrew plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "symfony"
+apply_antigen_bundle "brew"

@@ -17,11 +17,12 @@
 #
 
 #==================================================================
-# Script Name   : psh-ubuntu-installer
-# Description	: Enables oh-my-zsh's ubuntu plugin
+# Script Name   : psh-zsh-z-installer
+# Description	: Enables oh-my-zsh's z plugin to change dirs
+#                 in a smart way.
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "ubuntu"
+apply_antigen_bundle "z"

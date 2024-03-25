@@ -17,13 +17,13 @@
 #
 
 #==================================================================
-# Script Name   : psh-node-installer
-# Description	: Enables oh-my-zsh's node and npm plugin
+# Script Name   : psh-ssh-agent-installer
+# Description	: Enables oh-my-zsh's ssh-agent plugin
+#                 to automatically load the ssh-agent.
+#                 Especially usefull on WSL2.
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "node"
-apply_antigen_bundle "npm"
-apply_antigen_bundle "nvm"
+apply_antigen_bundle "ssh-agent"

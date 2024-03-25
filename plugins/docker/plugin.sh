@@ -27,5 +27,4 @@
 
 apply_antigen_bundle "docker"
 apply_antigen_bundle "docker-compose"
-apply_antigen_bundle "docker-machine"
 apply_antigen_bundle "ctop"

@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-ng-installer
-# Description	: Enables oh-my-zsh's ng plugin
+# Script Name   : psh-timer-installer
+# Description	: Enables oh-my-zsh's timer plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "ng"
+apply_antigen_bundle "ssh-agent"
