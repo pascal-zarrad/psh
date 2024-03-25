@@ -26,3 +26,4 @@
 
 apply_antigen_bundle "helm"
 apply_antigen_bundle "kubectl"
+apply_antigen_bundle "kubectx"
