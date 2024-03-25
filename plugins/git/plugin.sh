@@ -26,4 +26,4 @@
 
 apply_antigen_bundle "git"
 apply_antigen_bundle "gitignore"
-apply_antigen_bundle "git-commit plugin"
+apply_antigen_bundle "git-commit"
