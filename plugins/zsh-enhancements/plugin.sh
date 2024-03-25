@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022 Pascal Zarrad
+# Copyright 2024 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
 #==================================================================
 # Script Names  : psh-zsh-enhancements-installer
-# Description	: Plugins that enhance the zsh experience.
+# Description	: Plugins that enhance the general shell experience
 # Args          : -
 # Author(s)     : Pascal Zarrad, Nico Just
 # Email         : P.Zarrad@outlook.de, nicojust@users.noreply.github.com

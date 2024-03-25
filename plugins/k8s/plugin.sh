@@ -17,11 +17,13 @@
 #
 
 #==================================================================
-# Script Name   : psh-alias-finder-installer
-# Description	: Enables oh-my-zsh's alias finder
+# Script Name   : psh-k8s-installer
+# Description	: Enables oh-my-zsh's k8s plugins
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "alias-finder"
+apply_antigen_bundle "helm"
+apply_antigen_bundle "kubectl"
+apply_antigen_bundle "kubectx"

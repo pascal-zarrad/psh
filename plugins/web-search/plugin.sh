@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022 Pascal Zarrad
+# Copyright 2024 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-ant-installer
-# Description	: Enables oh-my-zsh's ant plugin
+# Script Name   : psh-web-search-installer
+# Description	: Enables oh-my-zsh's web-search plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "ant"
+apply_antigen_bundle "web-search"

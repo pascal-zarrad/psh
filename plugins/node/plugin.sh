@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022 Pascal Zarrad
+# Copyright 2024 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,6 +26,4 @@
 
 apply_antigen_bundle "node"
 apply_antigen_bundle "npm"
-apply_antigen_bundle "bower"
-apply_antigen_bundle "grunt"
-apply_antigen_bundle "bundler"
+apply_antigen_bundle "nvm"

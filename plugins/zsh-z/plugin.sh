@@ -17,11 +17,12 @@
 #
 
 #==================================================================
-# Script Name   : psh-alias-finder-installer
-# Description	: Enables oh-my-zsh's alias finder
+# Script Name   : psh-zsh-z-installer
+# Description	: Enables oh-my-zsh's z plugin to change dirs
+#                 in a smart way.
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "alias-finder"
+apply_antigen_bundle "z"

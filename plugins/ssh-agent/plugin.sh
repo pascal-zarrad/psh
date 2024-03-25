@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022 Pascal Zarrad
+# Copyright 2024 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,12 +17,13 @@
 #
 
 #==================================================================
-# Script Name   : psh-php-installer
-# Description	: Enables oh-my-zsh's voronkovich/phpcs.plugin.zsh plugin
+# Script Name   : psh-ssh-agent-installer
+# Description	: Enables oh-my-zsh's ssh-agent plugin
+#                 to automatically load the ssh-agent.
+#                 Especially usefull on WSL2.
 # Args          : -
-# Author       	: Nico Just
-# Email         : nicojust@users.noreply.github.com
+# Author       	: Pascal Zarrad
+# Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "voronkovich/phpcs.plugin.zsh"
-apply_antigen_bundle "voronkovich/phpunit.plugin.zsh"
+apply_antigen_bundle "ssh-agent"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022 Pascal Zarrad
+# Copyright 2024 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-ng-installer
-# Description	: Enables oh-my-zsh's ng plugin
+# Script Name   : psh-genpass-installer
+# Description	: Enables oh-my-zsh's genpass plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "ng"
+apply_antigen_bundle "genpass"

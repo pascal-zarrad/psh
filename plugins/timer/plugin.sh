@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022 Pascal Zarrad
+# Copyright 2024 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,25 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : fix-wsl
-# Description	: Script to fix permission problems on WSL
+# Script Name   : psh-timer-installer
+# Description	: Enables oh-my-zsh's timer plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-if [ -d "${HOME}/.antigen/bundles" ]
-    then
-        echo "Fixing permissions of ${HOME}/.antigen/bundles..."
-        chmod -R 755 "${HOME}/.antigen/bundles"
-        chmod_result="$?"
-        if [ "$chmod_result" -eq 0 ]
-            then
-                echo "Succesfully fixed permissions of ${HOME}/.antigen/bundles"
-            else
-                echo "Failed to fix permissions of ${HOME}/.antigen/bundles"
-        fi
-    else
-        echo "${HOME}/.antigen/bundles does not exist, you first have to launch the fully configured"
-        echo "zsh at least once after running this fixer."
-fi
+apply_antigen_bundle "ssh-agent"

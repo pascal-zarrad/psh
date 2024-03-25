@@ -17,11 +17,11 @@
 #
 
 #==================================================================
-# Script Name   : psh-alias-finder-installer
-# Description	: Enables oh-my-zsh's alias finder
+# Script Name   : psh-bun-installer
+# Description	: Enables oh-my-zsh's bun javascript runtime plugin
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "alias-finder"
+apply_antigen_bundle "bun"
