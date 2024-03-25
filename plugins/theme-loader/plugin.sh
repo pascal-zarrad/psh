@@ -25,4 +25,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_theme "bira"
+apply_antigen_theme "candy"
