@@ -43,6 +43,7 @@ Currently psh is only tested in the following environments:
  * Debian
  * PopOs!
  * Windows Subsystem for Linux 2 (WSL2)
+ * macOS (experimental support)
 
 psh is is only tested on the current OS releases when a release is made.
 If you want to be sure, test psh in a virtual machine before installing it.
