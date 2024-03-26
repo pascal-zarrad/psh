@@ -39,3 +39,8 @@ apply_plugin "zsh-users/zsh-autosuggestions"
 # from history and then press chosen keys, such as the UP and
 # DOWN arrows, to cycle through matches.
 apply_plugin "zsh-users/zsh-history-substring-search"
+
+# This plugin adds autocompletion to further speed up command
+# line work. Together with autosuggestions, it makes typing
+# commands a breeze.
+apply_plugin "marlonrichert/zsh-autocomplete"
