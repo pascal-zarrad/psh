@@ -72,23 +72,16 @@ fi
 
 # Load functions for console read/write
 source "lib/console.sh"
-# Load functions to manage user specific stuff
-source "lib/user_management.sh"
 
 # Function to print usage of install.sh
 show_param_help() {
     print_message "Usage of install.sh:"
-    print_message "install.sh [USER] [--arg]"
+    print_message "install.sh [--arg]"
     print_message ""
     print_message "--help                - Prints this help page"
     print_message "--disable-templates   - Disables inclusion of templates"
     print_message "--disable-plugins     - Disable plugin execution"
     print_message "--unattended          - Run without user interaction (except password prompts)"
-    print_message ""
-    print_message "You can place the user parameter anywhere. The first parameter without"
-    print_message "a dash is being used as the target user. All other arguments without"
-    print_message "leading dashes are being ignored."
-    print_message "Note that installing psh for another user requires root privileges!"
     exit
 }
 
@@ -96,7 +89,6 @@ show_param_help() {
 start_arg_disable_template_engine_parameter=0
 start_arg_disable_plugin_system_parameter=0
 start_arg_run_unattended_parameter=0
-start_arg_install_for_user_parameter=$(whoami)
 # Process arguments/start parameters
 # and set values to use
 while test $# != 0; do
@@ -116,39 +108,17 @@ while test $# != 0; do
     -*)
         show_param_help
         ;;
-    *)
-        if [ "$start_arg_install_for_user_parameter" = "$(whoami)" ]; then
-            if [ "$(id -u)" -eq "0" ]; then
-                if [[ "$detected_os" = "Darwin" ]]; then
-                    print_error "psh supports installation on macOS only for the current user!"
-                    exit 1
-                fi
-                start_arg_install_for_user_parameter="$1"
-            else
-                print_error "Run the install script as root to install psh for another user (not supported on macOS)!"
-                exit 1
-            fi
-        fi
-        ;;
     esac
     shift
 done
 
 # Construct the target home directory of the user which will receive psh
-if [[ "$detected_os" = "Darwin" ]]; then
-    CUSTOM_USER_HOME_DIR="$HOME"
-else
-    if check_user_exists "$start_arg_install_for_user_parameter"; then
-        CUSTOM_USER_HOME_DIR="$(get_user_home "$start_arg_install_for_user_parameter")"
-        readonly CUSTOM_USER_HOME_DIR
-    else
-        print_error "The targeted user does not exist!"
-        exit 1
-    fi
-fi
+INSTALLATION_USERNAME=$(whoami)
+readonly INSTALLATION_USERNAME
+readonly CUSTOM_USER_HOME_DIR="$HOME"
 
 # Print initial
-print_message "This install script will install zsh and configure it automatically for the user ${start_arg_install_for_user_parameter}."
+print_message "This install script will install zsh and configure it automatically."
 print_message "If you accept all steps of the installation, zsh will be pre-confiured to provide a great experience out of the box."
 print_message "The installer will check the dependencies and will inform you about required actions."
 print_message "If you have sudo installed, the installer will automatically try to install the dependencies, after your approval."
@@ -157,7 +127,7 @@ print_message "On macOS brew without sudo is used to install dependencies!"
 # Ask user if he wants to start installation
 # Ask the user if he really wants to install the cron
 print_message ""
-yes_no_abort_dialog "Do you want to install psh for ${start_arg_install_for_user_parameter}? (y/n): " "${start_arg_run_unattended_parameter}"
+yes_no_abort_dialog "Do you want to install psh? (y/n): " "${start_arg_run_unattended_parameter}"
 
 # Import the right package manager depending on current distribution
 if [[ "$detected_os" = "Debian GNU/Linux" || "$detected_os" = "Ubuntu" || "$detected_os" = "Pop!_OS" ]]; then
@@ -257,10 +227,6 @@ else
     fi
 fi
 
-if ! [[ "$detected_os" = "Darwin" ]]; then
-    fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZPLUG_FOLDER_PATH}"
-fi
-
 # Load plugin API
 source "lib/plugin_api.sh"
 
@@ -273,9 +239,6 @@ print_message ""
 print_message "Backing up ${ZSHRC_PATH} to ${ZSHRC_UNMODIFIED_PATH}..."
 if [ -f "${ZSHRC_PATH}" ]; then
     if cp "${ZSHRC_PATH}" "${ZSHRC_UNMODIFIED_PATH}"; then
-        if ! [[ "$detected_os" = "Darwin" ]]; then
-            fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_UNMODIFIED_PATH}"
-        fi
         print_success "Backed up ${ZSHRC_PATH}"
     else
         print_error "Failed to backup ${ZSHRC_PATH}"
@@ -376,11 +339,6 @@ include_templates "${TEMPLATE_END}" "${start_arg_disable_template_engine_paramet
 # Print warnings for templates without the template directive
 print_template_warnings "${start_arg_disable_template_engine_parameter}"
 
-# Fix .zshrc permissions
-if ! [[ "$detected_os" = "Darwin" ]]; then
-    fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_PATH}"
-fi
-
 # Trigger shell chage (chsh) to zsh of a specific user
 #
 # @param $1 The user of which the shell will be changed
@@ -417,10 +375,10 @@ fi
 if [ "${start_arg_run_unattended_parameter}" -eq 0 ]; then
     read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
     if [ "${confirmDefaultShell}" = "y" ] || [ "${confirmDefaultShell}" = "yes" ]; then
-        change_shell_to_zsh "${start_arg_install_for_user_parameter}"
+        change_shell_to_zsh "${INSTALLATION_USERNAME}"
     fi
 else
-    change_shell_to_zsh "${start_arg_install_for_user_parameter}"
+    change_shell_to_zsh "${INSTALLATION_USERNAME}"
 fi
 
 # The installation was successful
