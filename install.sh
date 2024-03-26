@@ -257,7 +257,7 @@ else
     fi
 fi
 
-if [[ "$detected_os" != "Darwin" ]]; then
+if ! [[ "$detected_os" = "Darwin" ]]; then
     fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZPLUG_FOLDER_PATH}"
 fi
 
@@ -273,7 +273,7 @@ print_message ""
 print_message "Backing up ${ZSHRC_PATH} to ${ZSHRC_UNMODIFIED_PATH}..."
 if [ -f "${ZSHRC_PATH}" ]; then
     if cp "${ZSHRC_PATH}" "${ZSHRC_UNMODIFIED_PATH}"; then
-        if [[ "$detected_os" != "Darwin" ]]; then
+        if ! [[ "$detected_os" = "Darwin" ]]; then
             fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_UNMODIFIED_PATH}"
         fi
         print_success "Backed up ${ZSHRC_PATH}"
@@ -377,7 +377,7 @@ include_templates "${TEMPLATE_END}" "${start_arg_disable_template_engine_paramet
 print_template_warnings "${start_arg_disable_template_engine_parameter}"
 
 # Fix .zshrc permissions
-if [[ "$detected_os" != "Darwin" ]]; then
+if ! [[ "$detected_os" = "Darwin" ]]; then
     fix_user_permissions "${start_arg_install_for_user_parameter}" "${ZSHRC_PATH}"
 fi
 
