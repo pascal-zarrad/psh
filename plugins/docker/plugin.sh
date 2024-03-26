@@ -25,6 +25,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "docker"
-apply_antigen_bundle "docker-compose"
-apply_antigen_bundle "ctop"
+apply_ohmyzsh_plugin "docker"
+apply_ohmyzsh_plugin "docker-compose"
+apply_ohmyzsh_plugin "ctop"

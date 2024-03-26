@@ -24,6 +24,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "node"
-apply_antigen_bundle "npm"
-apply_antigen_bundle "nvm"
+apply_ohmyzsh_plugin "node"
+apply_ohmyzsh_plugin "npm"
+apply_ohmyzsh_plugin "nvm"

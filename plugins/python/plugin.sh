@@ -24,6 +24,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "python"
-apply_antigen_bundle "virtualenv"
-apply_antigen_bundle "pip"
+apply_ohmyzsh_plugin "python"
+apply_ohmyzsh_plugin "virtualenv"
+apply_ohmyzsh_plugin "pip"

@@ -24,4 +24,4 @@
 # Email         : nicojust@users.noreply.github.com
 #==================================================================
 
-apply_antigen_bundle "command-not-found"
+apply_ohmyzsh_plugin "command-not-found"

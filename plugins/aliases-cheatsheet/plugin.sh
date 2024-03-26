@@ -24,4 +24,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "aliases"
+apply_ohmyzsh_plugin "aliases"
