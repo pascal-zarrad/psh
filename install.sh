@@ -403,6 +403,17 @@ print_message ""
 print_message "zsh has been installed and is configured!"
 print_message "It is currently not configured as your default shell."
 print_message "${COLOR_CYAN}NOTE${COLOR_RESET} Only set for your current user account!"
+
+if [[ "$detected_os" = "Darwin" ]]; then
+    print_message ""
+    print_message "${COLOR_CYAN}NOTE${COLOR_RESET} You are running macOS and should already have zsh as your default shell!"
+    print_message ""
+    print_success "Installation completed successfully!"
+    print_success "Restart your terminal or re-login to activate zsh!"
+
+    exit 0
+fi
+
 if [ "${start_arg_run_unattended_parameter}" -eq 0 ]; then
     read -r -p "Do you want to set zsh as your default shell? (y/n): " confirmDefaultShell
     if [ "${confirmDefaultShell}" = "y" ] || [ "${confirmDefaultShell}" = "yes" ]; then
