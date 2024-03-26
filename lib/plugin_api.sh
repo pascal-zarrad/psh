@@ -48,6 +48,17 @@ function apply_plugin() {
     fi
 }
 
+# Function that checks if zplug oh-my-zsh lib is loaded or not
+# and then adds the lib to the .zshrc
+#
+# @param $1 The lib to add to the .zshrc
+function apply_ohmyzsh_lib() {
+    zplug_lib="$1"
+    if ! grep -q "zplug \"lib/${zplug_lib}\", from:oh-my-zsh" "${ZSHRC_PATH}" ; then
+        write_zshrc "zplug \"lib/${zplug_lib}\", from:oh-my-zsh"
+    fi
+}
+
 # Function that checks if zplug oh-my-zsh plugin is loaded or not
 # and then adds the plugin to the .zshrc
 #

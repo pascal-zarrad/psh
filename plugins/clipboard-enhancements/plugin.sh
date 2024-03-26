@@ -24,4 +24,7 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
+apply_ohmyzsh_lib "clipboard"
 apply_ohmyzsh_plugin "copypath"
+apply_ohmyzsh_plugin "copybuffer"
+apply_ohmyzsh_plugin "copyfile"
