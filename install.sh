@@ -42,7 +42,7 @@ elif [ -f /etc/lsb-release ]; then
     detected_os=$DISTRIB_ID
 elif [ -f /etc/debian_version ]; then
     detected_os=Debian
-elif [[ $(uname) -eq "Darwin" ]]; then
+elif [[ $(uname) = "Darwin" ]]; then
     detected_os=Darwin
 else
     print_error "Could not detect a valid distribution!"
