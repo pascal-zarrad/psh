@@ -24,4 +24,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_ohmyzsh_plugin "ssh-agent"
+apply_ohmyzsh_plugin "timer"
