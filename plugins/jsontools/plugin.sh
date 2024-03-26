@@ -24,4 +24,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "jsontools"
+apply_ohmyzsh_plugin "jsontools"

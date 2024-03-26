@@ -24,4 +24,4 @@
 # Email         : nicojust@users.noreply.github.com
 #==================================================================
 
-apply_antigen_bundle "rsync"
+apply_ohmyzsh_plugin "rsync"

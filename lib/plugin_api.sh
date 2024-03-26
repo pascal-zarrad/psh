@@ -37,24 +37,35 @@ function write_zshrc() {
     echo "$content" >> "${ZSHRC_PATH}"
 }
 
-# Function that checks if antigen bundle is loaded or not
-# and then adds the bundle to the .zshrc
+# Function that checks if zplug plugin is loaded or not
+# and then adds the plugin to the .zshrc
 #
-# @param $1 The bundle to add to the .zshrc
-function apply_antigen_bundle() {
-    antigen_bundle="$1"
-    if ! grep -q "$antigen_bundle" "${ZSHRC_PATH}" ; then
-        write_zshrc "antigen bundle ${antigen_bundle}"
+# @param $1 The plugin to add to the .zshrc
+function apply_plugin() {
+    zplug_plugin="$1"
+    if ! grep -q "zplug \"${zplug_plugin}\"" "${ZSHRC_PATH}" ; then
+        write_zshrc "zplug \"${zplug_plugin}\""
     fi
 }
 
-# Function that checks if antigen theme is loaded or not
+# Function that checks if zplug oh-my-zsh plugin is loaded or not
+# and then adds the plugin to the .zshrc
+#
+# @param $1 The plugin to add to the .zshrc
+function apply_ohmyzsh_plugin() {
+    zplug_plugin="$1"
+    if ! grep -q "zplug \"plugins/${zplug_plugin}\", from:oh-my-zsh" "${ZSHRC_PATH}" ; then
+        write_zshrc "zplug \"plugins/${zplug_plugin}\", from:oh-my-zsh"
+    fi
+}
+
+# Function that checks if zplug theme is loaded or not
 # and then adds the theme to the .zshrc
 #
 # @param $1 The name if the theme that should be added to the zshrc
-function apply_antigen_theme() {
-    antigen_theme="$1"
-    if ! grep -q "antigen theme" "${ZSHRC_PATH}" ; then
-        write_zshrc "antigen theme ${antigen_theme}"
+function apply_ohmyzsh_theme() {
+    zplug_theme="$1"
+    if ! grep -q "zplug \"themes/${zplug_theme}\", from:oh-my-zsh, as:theme" "${ZSHRC_PATH}" ; then
+        write_zshrc "zplug \"themes/$zplug_theme\", from:oh-my-zsh, as:theme"
     fi
 }

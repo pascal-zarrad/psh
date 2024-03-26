@@ -25,4 +25,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "z"
+apply_ohmyzsh_plugin "z"

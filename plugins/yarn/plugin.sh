@@ -24,5 +24,5 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "yarn"
-apply_antigen_bundle "yarn-autocompletions"
+apply_ohmyzsh_plugin "yarn"
+apply_ohmyzsh_plugin "yarn-autocompletions"

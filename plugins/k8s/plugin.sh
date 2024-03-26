@@ -24,6 +24,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "helm"
-apply_antigen_bundle "kubectl"
-apply_antigen_bundle "kubectx"
+apply_ohmyzsh_plugin "helm"
+apply_ohmyzsh_plugin "kubectl"
+apply_ohmyzsh_plugin "kubectx"

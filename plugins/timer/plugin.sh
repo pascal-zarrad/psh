@@ -24,4 +24,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "ssh-agent"
+apply_ohmyzsh_plugin "ssh-agent"

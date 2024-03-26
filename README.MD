@@ -1,9 +1,23 @@
 # psh ![CI](https://github.com/pascal-zarrad/psh/workflows/CI/badge.svg?branch=master)
-psh - which stands for Pascal's Shell is a configuration tool for zsh. It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh) that helps myself and hopefully also others to grow their productivity by customizing their shell experience.
+psh - which stands for Pascal's Shell is a configuration tool for zsh.
+It is a composition of the finest plugins and a nice looking theme (currently it is one bundled with oh-my-zsh)
+that helps myself and hopefully also others to grow their productivity by customizing their shell experience.
 
-This installer enables the fast installation of zsh, antigen (bundled with oh-my-zsh) and other stuff that is required for a great zsh experience on the shell. The installer generates always a custom .zshrc which can be modified by adding own customizations to the plugins folder. To make customizations even easier, psh has a template system that allows the import of personalized .zshrc snippets that are composed together and inserted into the generated configuration!
+This installer enables the fast installation of zsh, zplug and other stuff that is required for a great zsh experience on the shell.
+The installer generates always a custom .zshrc which can be modified by adding own customizations to the plugins folder.
+To make customizations even easier, psh has a template system that allows the import of personalized .zshrc snippets that are composed together
+and inserted into the generated configuration!
 
-It was never that easy and therefore fast to install a customized shell than with psh - and with some knowledge about shell scripting with bash, you will be able to implement everything you could imagine in a configuration for zsh.
+It was never that easy and therefore fast to install a customized shell than with psh - and with some knowledge about shell scripting with bash,
+you will be able to implement everything you could imagine in a configuration for zsh.
+
+> Why psh if I could just use zplug?
+>
+> First of all, psh is pre-configured in a way that is already quite powerful.
+> Secondly, psh takes care of dependencies. You setup your new os, clone this repository
+> and run the `install.sh` script. If your system is supported, psh installs literally
+> everything necessary - from zsh to git or curl - you can just start working without
+> any further manual stuff to do for your shell setup.
 
 ![PSH Installer](https://github.com/pascal-zarrad/psh/raw/master/.github/MEDIA/psh.gif)
 
@@ -22,13 +36,12 @@ But as the installer uses ```apt```, you need any system that supports ```apt```
 Currently psh is only tested in the following environments:
  * Arch Linux
  * Manjaro Linux
- * Ubuntu 22.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
- * Ubuntu 22.04 (Windows Subsystem for Linux 2)
- * Ubuntu 22.04
- * Ubuntu 20.04 (Windows Subsystem for Linux 1) (Take a look at "Note on WSL 1")
- * Ubuntu 20.04 (Windows Subsystem for Linux 2)
- * Ubuntu 20.04
- * Debian 11
+ + Windows Subsystem for Linux 2 (WSL2)
+ * Ubuntu
+ * Debian
+ + PopOs!
+
+Always assume that the newest operating system version relativ to the newest release has been used.
 
 You can find further information in the wiki under [Compatibility](https://github.com/pascal-zarrad/psh/wiki/Compatibility).
 

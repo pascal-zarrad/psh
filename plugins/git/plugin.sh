@@ -24,6 +24,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "git"
-apply_antigen_bundle "gitignore"
-apply_antigen_bundle "git-commit"
+apply_ohmyzsh_plugin "git"
+apply_ohmyzsh_plugin "gitignore"
+apply_ohmyzsh_plugin "git-commit"

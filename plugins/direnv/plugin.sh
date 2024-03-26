@@ -24,4 +24,4 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_antigen_bundle "direnv"
+apply_ohmyzsh_plugin "direnv"
