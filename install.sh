@@ -36,6 +36,7 @@ readonly DEPENDENCIES=(
     "curl"
     "imagemagick"
     "xclip"
+    "wl-clipboard"
 )
 
 # Load functions for console read/write
