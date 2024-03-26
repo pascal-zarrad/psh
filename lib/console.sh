@@ -26,11 +26,11 @@
 #==================================================================
 
 # Colors used during script execution
-export readonly COLOR_RESET="\e[0m"
-export readonly COLOR_RED="\e[31m"
-export readonly COLOR_GREEN="\e[32m"
-export readonly COLOR_CYAN="\e[36m"
-export  readonly COLOR_YELLOW="\e[33m"
+export readonly COLOR_RESET="\033[0m"
+export readonly COLOR_RED="\033[31m"
+export readonly COLOR_GREEN="\033[32m"
+export readonly COLOR_CYAN="\033[36m"
+export  readonly COLOR_YELLOW="\033[33m"
 
 # Prefixes
 export readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
