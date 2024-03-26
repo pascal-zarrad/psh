@@ -29,7 +29,7 @@
 readonly PSH_VERSION="1.1.0"
 echo "PSH - VERSION: ${PSH_VERSION}"
 
-# Dependencies that need to be installed with root privileges through apt-get
+# Dependencies that need to be installed with root privileges
 readonly DEPENDENCIES=(
     "zsh"
     "git"
