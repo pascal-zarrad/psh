@@ -51,14 +51,14 @@ function install_apt_packages() {
     local package_install_command="${3}"
     IFS=' ' read -r -a package_install_arguments <<< "$package_install_command"
     print_message "The installer has to install the following packages through pacman (using sudo if available): "
-    print_message "During package installation, an pacman update is done automatically!"
+    print_message "During package installation, an pacman database update is done automatically!"
     print_message "${COLOR_CYAN}${package_install_command}${COLOR_RESET}"
     yes_no_abort_dialog "Do you want to continue? (y/n): " "${start_arg_run_unattended}"
     if [ "$use_sudo" -eq 1 ]
         then
-            sudo pacman --noconfirm -Syu "${package_install_arguments[@]}"
+            sudo pacman --noconfirm -Sy "${package_install_arguments[@]}"
         else
-            pacman --noconfirm -Syu "${package_install_arguments[@]}"
+            pacman --noconfirm -Sy "${package_install_arguments[@]}"
     fi
     install_result="$?"
     if [ "$install_result" -ne 0 ]; then
