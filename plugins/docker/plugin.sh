@@ -26,5 +26,3 @@
 #==================================================================
 
 apply_ohmyzsh_plugin "docker"
-apply_ohmyzsh_plugin "docker-compose"
-apply_ohmyzsh_plugin "ctop"

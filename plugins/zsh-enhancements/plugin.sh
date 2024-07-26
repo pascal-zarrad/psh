@@ -34,12 +34,6 @@ apply_plugin "zsh-users/zsh-completions"
 # It suggests commands as you type based on history and completions.
 apply_plugin "zsh-users/zsh-autosuggestions"
 
-# This is a clean-room implementation of the Fish shell's history
-# search feature, where you can type in any part of any command
-# from history and then press chosen keys, such as the UP and
-# DOWN arrows, to cycle through matches.
-apply_plugin "zsh-users/zsh-history-substring-search"
-
 # This plugin adds autocompletion to further speed up command
 # line work. Together with autosuggestions, it makes typing
 # commands a breeze.

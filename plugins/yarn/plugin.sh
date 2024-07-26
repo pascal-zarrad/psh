@@ -25,4 +25,3 @@
 #==================================================================
 
 apply_ohmyzsh_plugin "yarn"
-apply_ohmyzsh_plugin "yarn-autocompletions"
