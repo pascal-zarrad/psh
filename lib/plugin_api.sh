@@ -48,6 +48,18 @@ function apply_plugin() {
     fi
 }
 
+# Function that checks if zplug plugin is loaded or not
+# and then adds the plugin with a specific version to the .zshrc
+#
+# @param $1 The plugin to add to the .zshrc
+function apply_plugin_version() {
+    zplug_plugin="$1"
+    zplug_plugin_version="$2"
+    if ! grep -q "zplug \"${zplug_plugin}\"" "${ZSHRC_PATH}" ; then
+        write_zshrc "zplug \"${zplug_plugin}\", at:${zplug_plugin_version}"
+    fi
+}
+
 # Function that checks if zplug oh-my-zsh lib is loaded or not
 # and then adds the lib to the .zshrc
 #

@@ -20,10 +20,16 @@
 # Script Name   : psh-ssh-agent-installer
 # Description	: Enables oh-my-zsh's ssh-agent plugin
 #                 to automatically load the ssh-agent.
-#                 Especially usefull on WSL2.
+#                 Only enabled on WSL2.
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_ohmyzsh_plugin "ssh-agent"
+if grep -q "Microsoft" "/proc/version" || grep -q ".*microsoft-standard*." "/proc/version"
+    then
+        apply_ohmyzsh_plugin "ssh-agent"
+
+        # Configure ssh agent to not instantly load keys on zsh start
+        write_zshrc "zstyle :omz:plugins:ssh-agent lazy yes"
+fi
