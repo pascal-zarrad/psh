@@ -37,7 +37,4 @@ apply_plugin "zsh-users/zsh-autosuggestions"
 # This plugin adds autocompletion to further speed up command
 # line work. Together with autosuggestions, it makes typing
 # commands a breeze.
-# The plugin has been locked to a specific commit as ~ expansion
-# on path autocomplete "broke" one commit after this one.
-# See: https://github.com/marlonrichert/zsh-autocomplete/issues/741
-apply_plugin_version "marlonrichert/zsh-autocomplete" "a66d6ae6f7e703b1bf5ae57e48a7da3cf307aeab"
+apply_plugin "marlonrichert/zsh-autocomplete"

@@ -24,6 +24,5 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_ohmyzsh_plugin "helm"
 apply_ohmyzsh_plugin "kubectl"
 apply_ohmyzsh_plugin "kubectx"
