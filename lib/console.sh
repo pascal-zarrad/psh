@@ -26,16 +26,16 @@
 #==================================================================
 
 # Colors used during script execution
-export readonly COLOR_RESET="\033[0m"
-export readonly COLOR_RED="\033[31m"
-export readonly COLOR_GREEN="\033[32m"
-export readonly COLOR_CYAN="\033[36m"
-export  readonly COLOR_YELLOW="\033[33m"
+declare -rx COLOR_RESET="\033[0m"
+declare -rx COLOR_RED="\033[31m"
+declare -rx COLOR_GREEN="\033[32m"
+declare -rx COLOR_CYAN="\033[36m"
+declare -rx COLOR_YELLOW="\033[33m"
 
 # Prefixes
-export readonly ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
-export readonly SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
-export readonly WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
+declare -rx ERROR_PREFIX="${COLOR_RED}ERROR${COLOR_RESET}"
+declare -rx SUCCESS_PREFIX="${COLOR_GREEN}SUCCESS${COLOR_RESET}"
+declare -rx WARNING_PREFIX="${COLOR_YELLOW}WARNING${COLOR_RESET}"
 
 # Print a message to the console
 #
