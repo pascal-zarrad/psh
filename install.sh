@@ -26,7 +26,7 @@
 #==================================================================
 
 # Semantic versioning version constant
-readonly PSH_VERSION="2.2.1"
+readonly PSH_VERSION="2.2.2"
 echo "PSH - VERSION: ${PSH_VERSION}"
 
 if [ -f /etc/os-release ]; then
