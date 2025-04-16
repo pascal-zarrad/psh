@@ -25,13 +25,13 @@
 #==================================================================
 
 # Template directive constant
-export readonly TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
+declare -rx TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
 # Different template insertion points
-export readonly TEMPLATE_START="START"
-export readonly TEMPLATE_BETWEEN_ZPLUG_AND_OH_MY_ZSH="BETWEEN_ZPLUG_AND_OH_MY_ZSH"
-export readonly TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
-export readonly TEMPLATE_AFTER_PLUGINS_BEFORE_ZPLUG_APPLY="AFTER_PLUGINS_BEFORE_ZPLUG_APPLY"
-export readonly TEMPLATE_END="END"
+declare -rx TEMPLATE_START="START"
+declare -rx TEMPLATE_BETWEEN_ZPLUG_AND_OH_MY_ZSH="BETWEEN_ZPLUG_AND_OH_MY_ZSH"
+declare -rx TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
+declare -rx TEMPLATE_AFTER_PLUGINS_BEFORE_ZPLUG_APPLY="AFTER_PLUGINS_BEFORE_ZPLUG_APPLY"
+declare -rx TEMPLATE_END="END"
 
 # Store the paths of our different template types in the arrays
 # to reduce I/O operations in comparison to v1 of the engine.
