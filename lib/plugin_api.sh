@@ -25,8 +25,8 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-# IMPORTANT: This script's functions requires a ZSHRC_PATH variable
-# to be set to work. Automatically set by the ../install.sh script.
+# IMPORTANT: This script's functions requires a ZSHRC_PATH and ANTIDOTE_PLUGINS_LIST_PATH
+# variable to be set to work. Automatically set by the ../install.sh script.
 
 # Function that writes everything from the first parameter
 # to the .zshrc that is being generated
@@ -37,58 +37,63 @@ function write_zshrc() {
     echo "$content" >> "${ZSHRC_PATH}"
 }
 
-# Function that checks if zplug plugin is loaded or not
-# and then adds the plugin to the .zshrc
+# Function that writes everything from the first parameter
+# to the antidote plugins file that is being generated
 #
-# @param $1 The plugin to add to the .zshrc
+# @param $1 The line of content to write to the plugins list
+function write_antidote_plugins_list() {
+    content="$1"
+    echo "$content" >> "${ANTIDOTE_PLUGINS_LIST_PATH}"
+}
+
+# Function that writes OMZ initialization with antidote to
+# to the antidote plugins list that is being generated
+function apply_ohmyzsh_initialization() {
+    write_antidote_plugins_list "getantidote/use-omz"
+    write_antidote_plugins_list "ohmyzsh/ohmyzsh path:lib"
+}
+
+# Function that checks if antidote plugin is loaded or not
+# and then adds the plugin to the antidote plugins list
+#
+# @param $1 The plugin to add to the plugins list
 function apply_plugin() {
-    zplug_plugin="$1"
-    if ! grep -q "zplug \"${zplug_plugin}\"" "${ZSHRC_PATH}" ; then
-        write_zshrc "zplug \"${zplug_plugin}\""
+    antidote_plugin="$1"
+    if ! grep -q "${antidote_plugin}" "${ANTIDOTE_PLUGINS_LIST_PATH}" ; then
+        write_antidote_plugins_list "${antidote_plugin}"
     fi
 }
 
-# Function that checks if zplug plugin is loaded or not
-# and then adds the plugin with a specific version to the .zshrc
+# Function that checks if antidote plugin is loaded or not
+# and then adds the plugin with a specific version to the antidote plugins list
 #
-# @param $1 The plugin to add to the .zshrc
+# @param $1 The plugin to add to the plugins list
 function apply_plugin_version() {
-    zplug_plugin="$1"
-    zplug_plugin_version="$2"
-    if ! grep -q "zplug \"${zplug_plugin}\"" "${ZSHRC_PATH}" ; then
-        write_zshrc "zplug \"${zplug_plugin}\", at:${zplug_plugin_version}"
+    antidote_plugin="$1"
+    antidote_plugin_version="$2"
+    if ! grep -q "${antidote_plugin}" "${ANTIDOTE_PLUGINS_LIST_PATH}" ; then
+        write_antidote_plugins_list "${antidote_plugin} branch:${antidote_plugin_version}"
     fi
 }
 
-# Function that checks if zplug oh-my-zsh lib is loaded or not
-# and then adds the lib to the .zshrc
+# Function that checks if antidote oh-my-zsh plugin is loaded or not
+# and then adds the plugin to the antidote plugins list
 #
-# @param $1 The lib to add to the .zshrc
-function apply_ohmyzsh_lib() {
-    zplug_lib="$1"
-    if ! grep -q "zplug \"lib/${zplug_lib}\", from:oh-my-zsh" "${ZSHRC_PATH}" ; then
-        write_zshrc "zplug \"lib/${zplug_lib}\", from:oh-my-zsh"
-    fi
-}
-
-# Function that checks if zplug oh-my-zsh plugin is loaded or not
-# and then adds the plugin to the .zshrc
-#
-# @param $1 The plugin to add to the .zshrc
+# @param $1 The plugin to add to the plugins list
 function apply_ohmyzsh_plugin() {
-    zplug_plugin="$1"
-    if ! grep -q "zplug \"plugins/${zplug_plugin}\", from:oh-my-zsh" "${ZSHRC_PATH}" ; then
-        write_zshrc "zplug \"plugins/${zplug_plugin}\", from:oh-my-zsh"
+    antidote_plugin="$1"
+    if ! grep -q "ohmyzsh/ohmyzsh path:plugins/${antidote_plugin}" "${ANTIDOTE_PLUGINS_LIST_PATH}" ; then
+        write_antidote_plugins_list "ohmyzsh/ohmyzsh path:plugins/${antidote_plugin}"
     fi
 }
 
-# Function that checks if zplug theme is loaded or not
-# and then adds the theme to the .zshrc
+# Function that checks if antidote theme is loaded or not
+# and then adds the theme to the antidote plugins list
 #
-# @param $1 The name if the theme that should be added to the zshrc
+# @param $1 The name if the theme that should be added to the plugins list
 function apply_ohmyzsh_theme() {
-    zplug_theme="$1"
-    if ! grep -q "zplug \"themes/${zplug_theme}\", from:oh-my-zsh, as:theme" "${ZSHRC_PATH}" ; then
-        write_zshrc "zplug \"themes/$zplug_theme\", from:oh-my-zsh, as:theme"
+    antidote_theme="$1"
+    if ! grep -q "ohmyzsh/ohmyzsh path:themes/${antidote_theme}.zsh-theme" "${ANTIDOTE_PLUGINS_LIST_PATH}" ; then
+        write_antidote_plugins_list "ohmyzsh/ohmyzsh path:themes/${antidote_theme}.zsh-theme"
     fi
 }

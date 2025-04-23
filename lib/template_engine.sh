@@ -28,17 +28,16 @@
 declare -rx TEMPLATE_DIRECTIVE="#PSH_TEMPLATE="
 # Different template insertion points
 declare -rx TEMPLATE_START="START"
-declare -rx TEMPLATE_BETWEEN_ZPLUG_AND_OH_MY_ZSH="BETWEEN_ZPLUG_AND_OH_MY_ZSH"
-declare -rx TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS="BETWEEN_OH_MY_ZSH_AND_PLUGINS"
-declare -rx TEMPLATE_AFTER_PLUGINS_BEFORE_ZPLUG_APPLY="AFTER_PLUGINS_BEFORE_ZPLUG_APPLY"
+declare -rx TEMPLATE_BETWEEN_ANTIDOTE_SOURCE_AND_PLUGINS="BETWEEN_ANTIDOTE_SOURCE_AND_PLUGINS"
+declare -rx TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY="AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY"
 declare -rx TEMPLATE_END="END"
 
 # Store the paths of our different template types in the arrays
 # to reduce I/O operations in comparison to v1 of the engine.
 templates_start=()
-templates_between_zplug_and_oh_my_zsh=()
-templates_between_oh_my_zsh_and_plugins=()
-templates_after_plugins_before_zplug_apply=()
+templates_between_antidote_and_oh_my_zsh=()
+templates_between_antidote_source_and_plugins=()
+templates_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY=()
 templates_end=()
 # Load our templates
 echo "Searching for templates..."
@@ -53,14 +52,11 @@ do
                     "${TEMPLATE_DIRECTIVE}$TEMPLATE_START")
                         templates_start=("${templates_start[@]}" "$templateFile")
                         ;;
-                    "${TEMPLATE_DIRECTIVE}$TEMPLATE_BETWEEN_ZPLUG_AND_OH_MY_ZSH")
-                        templates_between_zplug_and_oh_my_zsh=("${templates_between_zplug_and_oh_my_zsh[@]}" "$templateFile")
+                    "${TEMPLATE_DIRECTIVE}$TEMPLATE_BETWEEN_ANTIDOTE_SOURCE_AND_PLUGINS")
+                        templates_between_antidote_source_and_plugins=("${templates_between_antidote_source_and_plugins[@]}" "$templateFile")
                         ;;
-                    "${TEMPLATE_DIRECTIVE}$TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS")
-                        templates_between_oh_my_zsh_and_plugins=("${templates_between_oh_my_zsh_and_plugins[@]}" "$templateFile")
-                        ;;
-                    "${TEMPLATE_DIRECTIVE}$TEMPLATE_AFTER_PLUGINS_BEFORE_ZPLUG_APPLY")
-                        templates_after_plugins_before_zplug_apply=("${templates_after_plugins_before_zplug_apply[@]}" "$templateFile")
+                    "${TEMPLATE_DIRECTIVE}$TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY")
+                        templates_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY=("${templates_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY[@]}" "$templateFile")
                         ;;
                     "${TEMPLATE_DIRECTIVE}$TEMPLATE_END")
                         templates_end=("${templates_end[@]}" "$templateFile")
@@ -96,14 +92,11 @@ function include_templates() {
             "$TEMPLATE_START")
                 currentTemplateFiles=("${templates_start[@]}")
                 ;;
-            "$TEMPLATE_BETWEEN_ZPLUG_AND_OH_MY_ZSH")
-                currentTemplateFiles=("${templates_between_zplug_and_oh_my_zsh[@]}")
+            "$TEMPLATE_BETWEEN_ANTIDOTE_SOURCE_AND_PLUGINS")
+                currentTemplateFiles=("${templates_between_antidote_source_and_plugins[@]}")
                 ;;
-            "$TEMPLATE_BETWEEN_OH_MY_ZSH_AND_PLUGINS")
-                currentTemplateFiles=("${templates_between_oh_my_zsh_and_plugins[@]}")
-                ;;
-            "$TEMPLATE_AFTER_PLUGINS_BEFORE_ZPLUG_APPLY")
-                currentTemplateFiles=("${templates_after_plugins_before_zplug_apply[@]}")
+            "$TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY")
+                currentTemplateFiles=("${templates_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY[@]}")
                 ;;
             "$TEMPLATE_END")
                 currentTemplateFiles=("${templates_end[@]}")

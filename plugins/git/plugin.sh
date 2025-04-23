@@ -24,7 +24,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_ohmyzsh_lib "async_prompt"
 apply_ohmyzsh_plugin "git"
 apply_ohmyzsh_plugin "gitignore"
 apply_ohmyzsh_plugin "git-commit"
