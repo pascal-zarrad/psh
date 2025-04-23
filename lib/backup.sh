@@ -35,14 +35,14 @@ function psh_backup_file() {
 
     print_message ""
     print_message "Backing up ${source} to ${backup}..."
-    if [ -f "${ANTIDOTE_PLUGINS_LIST_PATH}" ]; then
-        if cp "${ANTIDOTE_PLUGINS_LIST_PATH}" "${backup}"; then
-            print_success "Backed up ${ANTIDOTE_PLUGINS_LIST_PATH}"
+    if [ -f "${source}" ]; then
+        if cp "${source}" "${backup}"; then
+            print_success "Backed up ${source}"
         else
-            print_error "Failed to backup ${ANTIDOTE_PLUGINS_LIST_PATH}"
+            print_error "Failed to backup ${source}"
         fi
     else
-        print_warning "No .zshrc exists, nothing has been backed up!"
+        print_warning "No ${source} exists, nothing has been backed up!"
     fi
     print_message ""
 }
