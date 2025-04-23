@@ -236,18 +236,8 @@ readonly ZSHRC_PATH="${CUSTOM_USER_HOME_DIR}/.zshrc"
 readonly ZSHRC_UNMODIFIED_PATH="${CUSTOM_USER_HOME_DIR}/.zshrc_unmodified"
 
 # First of all backup .zshrc
-print_message ""
-print_message "Backing up ${ZSHRC_PATH} to ${ZSHRC_UNMODIFIED_PATH}..."
-if [ -f "${ZSHRC_PATH}" ]; then
-    if cp "${ZSHRC_PATH}" "${ZSHRC_UNMODIFIED_PATH}"; then
-        print_success "Backed up ${ZSHRC_PATH}"
-    else
-        print_error "Failed to backup ${ZSHRC_PATH}"
-    fi
-else
-    print_warning "No .zshrc exists, nothing has been backed up!"
-fi
-print_message ""
+source "lib/backup.sh"
+psh_backup_file "${ZSHRC_PATH}" "${ZSHRC_UNMODIFIED_PATH}"
 
 print_message "Preparing ${ZSHRC_PATH}"
 
@@ -279,8 +269,14 @@ include_templates "${TEMPLATE_BETWEEN_ANTIDOTE_SOURCE_AND_PLUGINS}" "${start_arg
 print_success "Prepared ${ZSHRC_PATH}"
 
 readonly ANTIDOTE_PLUGINS_LIST_PATH="${PSH_FOLDER_PATH}/zsh_plugins.list"
+readonly ANTIDOTE_PLUGINS_LIST_UNMODIFIED_PATH="${PSH_FOLDER_PATH}/zsh_plugins.list_unmodified"
 readonly ANTIDOTE_STATIC_PLUGINS_PATH="${PSH_FOLDER_PATH}/zsh_plugins.zsh"
+readonly ANTIDOTE_STATIC_PLUGINS_UNMODIFIED_PATH="${PSH_FOLDER_PATH}/zsh_plugins.zsh_unmodified"
 if [ "${start_arg_disable_plugin_system_parameter}" -ne 1 ]; then
+
+    # Backup Antidote plugins list and source file
+    psh_backup_file "${ANTIDOTE_PLUGINS_LIST_PATH}" "${ANTIDOTE_PLUGINS_LIST_UNMODIFIED_PATH}"
+    psh_backup_file "${ANTIDOTE_STATIC_PLUGINS_PATH}" "${ANTIDOTE_STATIC_PLUGINS_UNMODIFIED_PATH}"
 
     # Add comment which tells the user that here all automatically loaded
     # plugins are loaded.
