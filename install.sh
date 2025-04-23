@@ -205,11 +205,11 @@ fi
 print_success "Installed all system dependencies for psh!"
 print_message ""
 
-# Install antidote to ~/.antidote
+# Install antidote to ~/.psh/antidote
 print_message ""
 print_message "The basic installation of zsh and its dependencies is now done."
 print_message "Now components required for customization will be installed."
-print_message "antidote is used for plugin management."
+print_message "Antidote is used for plugin management."
 print_message "To enable this plugin manager, it will now be installed..."
 readonly PSH_FOLDER_PATH="${CUSTOM_USER_HOME_DIR}/.psh"
 readonly ANTIDOTE_FOLDER_PATH="${PSH_FOLDER_PATH}/.psh/antidote"
