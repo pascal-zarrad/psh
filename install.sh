@@ -212,7 +212,7 @@ print_message "Now components required for customization will be installed."
 print_message "Antidote is used for plugin management."
 print_message "To enable this plugin manager, it will now be installed..."
 readonly PSH_FOLDER_PATH="${CUSTOM_USER_HOME_DIR}/.psh"
-readonly ANTIDOTE_FOLDER_PATH="${PSH_FOLDER_PATH}/.psh/antidote"
+readonly ANTIDOTE_FOLDER_PATH="${PSH_FOLDER_PATH}/antidote"
 readonly ANTIDOTE_PATH="${ANTIDOTE_FOLDER_PATH}/antidote.zsh"
 if [ -f "${ANTIDOTE_PATH}" ]; then
     print_success "antidote is already installed."
