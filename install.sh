@@ -25,6 +25,9 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
+# Strict error handling
+set -euo pipefail
+
 # Semantic versioning version constant
 readonly PSH_VERSION="3.0.0"
 echo "PSH - VERSION: ${PSH_VERSION}"
@@ -317,9 +320,6 @@ if [ "${start_arg_disable_plugin_system_parameter}" -ne 1 ]; then
     print_success "Plugin execution done."
     print_message ""
 fi
-
-# Include templates after plugins being loaded but before antidote settings are applied
-include_templates "${TEMPLATE_AFTER_PLUGINS_BEFORE_ANTIDOTE_APPLY}" "${start_arg_disable_template_engine_parameter}" "${ZSHRC_PATH}"
 
 {
     # Now finish antidote installation in ultra high performance mode

@@ -39,6 +39,7 @@ templates_end=()
 # Load our templates
 echo "Searching for templates..."
 templateFiles=()
+templates_invalid=()
 while IFS='' read -r line; do templateFiles+=("$line"); done < <(ls -1 templates)
 for templateFile in "${templateFiles[@]}"
 do
@@ -60,7 +61,7 @@ do
                         ;;
                 esac
             else
-                    print_error "Failed to read teamplate file ${templateFile}!"
+                    print_error "Failed to read template file ${templateFile}!"
         fi
     fi
 done
