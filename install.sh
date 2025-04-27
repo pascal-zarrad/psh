@@ -217,8 +217,8 @@ readonly ANTIDOTE_PATH="${ANTIDOTE_FOLDER_PATH}/antidote.zsh"
 if [ -f "${ANTIDOTE_PATH}" ]; then
     print_success "antidote is already installed."
 else
-    if ! [ -d "${ANTIDOTE_FOLDER_PATH}" ]; then
-        mkdir "${ANTIDOTE_FOLDER_PATH}"
+    if ! [ -d "${PSH_FOLDER_PATH}" ]; then
+        mkdir -p "${PSH_FOLDER_PATH}"
     fi
     if git clone --depth=1 https://github.com/mattmc3/antidote.git "${ANTIDOTE_FOLDER_PATH}"; then
         print_success "Successfully installed antidote to ${ANTIDOTE_PATH}"
