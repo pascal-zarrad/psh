@@ -42,13 +42,11 @@ that are used to enhance the zsh experience. However, due to package management,
 
 Currently psh is only tested in the following environments:
 
--   Arch Linux
--   Manjaro Linux
 -   Ubuntu
 -   Debian
 -   PopOs!
 -   Windows Subsystem for Linux 2 (WSL2)
--   macOS (experimental support)
+-   macOS
 
 psh is is only tested on the current OS releases when a release is made.
 If you want to be sure, test psh in a virtual machine before installing it.
