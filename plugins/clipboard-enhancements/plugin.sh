@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2024 Pascal Zarrad
+# Copyright 2025 Pascal Zarrad
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_ohmyzsh_lib "clipboard"
 apply_ohmyzsh_plugin "copypath"
 apply_ohmyzsh_plugin "copybuffer"
 apply_ohmyzsh_plugin "copyfile"

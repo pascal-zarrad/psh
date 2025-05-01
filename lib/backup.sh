@@ -17,11 +17,32 @@
 #
 
 #==================================================================
-# Script Name   : psh-safe-paste-installer
-# Description	: Enables oh-my-zsh's safe paste plugin
+# Script Name   : psh-backup
+# Description	: Backup utilities for psh
 # Args          : -
 # Author       	: Pascal Zarrad
 # Email         : P.Zarrad@outlook.de
 #==================================================================
 
-apply_ohmyzsh_plugin "safe-paste"
+# Function that copies the source file to the backup file.
+# During backup process, info is logged to the console.
+#
+# @param $1 The path to the file to backup
+# @param $2 The path to the backup file
+function psh_backup_file() {
+    source="$1"
+    backup="$2"
+
+    print_message ""
+    print_message "Backing up ${source} to ${backup}..."
+    if [ -f "${source}" ]; then
+        if cp "${source}" "${backup}"; then
+            print_success "Backed up ${source}"
+        else
+            print_error "Failed to backup ${source}"
+        fi
+    else
+        print_warning "No ${source} exists, nothing has been backed up!"
+    fi
+    print_message ""
+}
