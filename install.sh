@@ -26,7 +26,7 @@
 #==================================================================
 
 # Strict error handling
-set -euo pipefail
+set -eo pipefail
 
 # Semantic versioning version constant
 readonly PSH_VERSION="3.0.0"
