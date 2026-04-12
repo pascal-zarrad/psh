@@ -135,6 +135,8 @@ yes_no_abort_dialog "Do you want to install psh? (y/n): " "${start_arg_run_unatt
 # Import the right package manager depending on current distribution
 if [[ "$detected_os" = "Debian GNU/Linux" || "$detected_os" = "Ubuntu" || "$detected_os" = "Pop!_OS" ]]; then
     source "lib/distdep/deb_based/package_management.sh"
+elif [[ "$detected_os" = "Arch Linux" || "$detected_os" = "CachyOS Linux" || "$detected_os" = "EndeavourOS" || "$detected_os" = "Manjaro Linux" ]]; then
+    source "lib/distdep/arch_based/package_management.sh"
 elif [[ "$detected_os" = "Darwin" ]]; then
     source "lib/distdep/darwin_based/package_management.sh"
 else
