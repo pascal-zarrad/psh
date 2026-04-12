@@ -45,6 +45,10 @@ Currently psh is only tested in the following environments:
 -   Ubuntu
 -   Debian
 -   PopOs!
+-   Arch Linux
+-   CachyOS
+-   EndeavourOS
+-   Manjaro
 -   Windows Subsystem for Linux 2 (WSL2)
 -   macOS
 
